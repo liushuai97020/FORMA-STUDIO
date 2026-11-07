@@ -1,0 +1,21 @@
+{
+  "index": "06",
+  "title": "Your Project",
+  "subtitle": "你的项目中文副标题",
+  "category": "Space",
+  "type": "建筑",
+  "year": "2026",
+  "medium": "实时三维 / WebGL",
+  "location": "城市，国家",
+  "area": "100 m²",
+  "description": "One or two concrete sentences about the material, light and interaction of this project.",
+  "descriptionZh": "用一两句中文，具体描述这个项目的材质、光线与空间。",
+  "tags": ["Three.js", "实时渲染", "空间"],
+  "order": 6,
+  "theme": {
+    "background": "#F2ECE3",
+    "ink": "#1D1A17",
+    "accent": "#B8653F",
+    "accentSoft": "#DCC9B4"
+  }
+}

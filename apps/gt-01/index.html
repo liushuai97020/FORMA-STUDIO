@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>GT-01 — FORMA</title>
+    <meta
+      name="description"
+      content="GT-01 —— 纯电大型旅行轿跑概念车。关于速度与静谧的连续曲面研究，在浏览器中实时渲染的 FORMA 汽车概念作品。"
+    />
+    <meta name="theme-color" content="#E9E8E4" />
+    <meta name="color-scheme" content="light" />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div class="experience">
+      <!-- Full-window WebGL studio. The canvas is decorative; the overlay carries the content. -->
+      <canvas id="stage" aria-hidden="true"></canvas>
+
+      <!-- Warm-grey studio haze: top wash, bottom scrim, vignette and fine grain. -->
+      <div class="atmosphere" aria-hidden="true">
+        <div class="atmosphere__wash"></div>
+        <div class="atmosphere__vignette"></div>
+        <div class="atmosphere__scrim"></div>
+        <div class="atmosphere__grain"></div>
+      </div>
+
+      <main class="ui">
+        <header class="masthead reveal" style="--reveal: 90ms">
+          <span class="masthead__mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none">
+              <circle cx="12" cy="12" r="9.1" stroke="currentColor" stroke-width="0.8" opacity="0.45" />
+              <path d="M3.6 12h16.8" stroke="currentColor" stroke-width="0.8" opacity="0.85" />
+              <path d="M7.1 8.2h9.8" stroke="currentColor" stroke-width="0.8" opacity="0.3" />
+              <circle cx="12" cy="12" r="1.25" fill="currentColor" />
+            </svg>
+          </span>
+          <p class="masthead__label">
+            <span class="masthead__index">03</span>
+            <span class="masthead__slash" aria-hidden="true">/</span>
+            <span>GT-01</span>
+            <span class="masthead__slash" aria-hidden="true">/</span>
+            <span>汽车概念</span>
+            <span class="masthead__en" aria-hidden="true">Automotive</span>
+          </p>
+        </header>
+
+        <div class="bottom">
+          <section class="colophon" aria-labelledby="project-title">
+            <h1 id="project-title" class="title reveal" style="--reveal: 260ms">
+              GT-<em>01</em>
+            </h1>
+            <p class="subtitle reveal" style="--reveal: 400ms">纯电大型旅行轿跑概念车</p>
+            <p class="subtitle-en reveal" style="--reveal: 440ms">
+              Electric grand tourer concept
+            </p>
+            <p class="meta reveal" style="--reveal: 500ms">
+              <span>慕尼黑，德国</span>
+              <span class="meta__dot" aria-hidden="true"></span>
+              <span>2026</span>
+            </p>
+            <p class="specs reveal" style="--reveal: 560ms">
+              <span>续航 640 公里</span>
+              <span class="meta__dot" aria-hidden="true"></span>
+              <span>零百加速 3.1 秒</span>
+            </p>
+          </section>
+
+          <div class="controls reveal" style="--reveal: 620ms">
+            <div class="paint">
+              <span class="paint__label" id="paint-label">
+                车漆 <span class="paint__en" aria-hidden="true">Paint</span>
+              </span>
+              <div class="swatches" role="group" aria-labelledby="paint-label">
+                <button
+                  type="button"
+                  class="swatch is-active"
+                  data-paint="sage"
+                  style="--swatch: #667a63"
+                  aria-label="鼠尾草绿金属漆"
+                  aria-pressed="true"
+                ></button>
+                <button
+                  type="button"
+                  class="swatch"
+                  data-paint="silver"
+                  style="--swatch: #b7b3a8"
+                  aria-label="暖银金属漆"
+                  aria-pressed="false"
+                ></button>
+                <button
+                  type="button"
+                  class="swatch"
+                  data-paint="graphite"
+                  style="--swatch: #2a2c2e"
+                  aria-label="深石墨金属漆"
+                  aria-pressed="false"
+                ></button>
+              </div>
+            </div>
+
+            <p class="cue">
+              <span class="cue__glyph" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none">
+                  <path
+                    d="M20.1 12a8.1 8.1 0 1 1-2.37-5.73"
+                    stroke="currentColor"
+                    stroke-width="0.9"
+                    stroke-linecap="round"
+                  />
+                  <path
+                    d="M20.5 3.6v4.4h-4.4"
+                    stroke="currentColor"
+                    stroke-width="0.9"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                  <circle cx="12" cy="12" r="1.05" fill="currentColor" />
+                </svg>
+              </span>
+              <span>拖动旋转</span>
+            </p>
+          </div>
+        </div>
+      </main>
+
+      <p class="sr-only">
+        GT-01，纯电大型旅行轿跑概念车，置于暖灰色设计工作室中。低矮的连续曲面车身，修长的车头、
+        倾斜的玻璃座舱、贴合车身的车轮与纤细的 LED 光带。车辆在转台上缓慢旋转；拖动可带惯性旋转，
+        亦可切换鼠尾草绿金属漆、暖银金属漆与深石墨金属漆三种车身颜色。页面隐藏时旋转自动暂停。
+        本作品将使用设备的图形处理器进行实时渲染。
+      </p>
+    </div>
+
+    <noscript>
+      <p class="no-script">GT-01 需要 JavaScript 与 WebGL 才能显示。</p>
+    </noscript>
+
+    <!-- Reveal the editorial overlay even if the module cannot load (never in cover mode). -->
+    <script>
+      if (!/[?&]cover=1/.test(window.location.search)) {
+        window.setTimeout(function () {
+          document.body.classList.add('is-ready');
+        }, 2800);
+      }
+    </script>
+    <script type="module" src="./main.js"></script>
+  </body>
+</html>

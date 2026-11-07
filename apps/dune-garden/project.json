@@ -1,0 +1,26 @@
+{
+  "index": "05",
+  "title": "Dune Garden",
+  "subtitle": "海与沙之间的庭院",
+  "category": "Space",
+  "year": "2026",
+  "medium": "Landscape architecture",
+  "location": "Comporta, Portugal",
+  "area": "620 m²",
+  "description": "A coastal garden that works with the wind. Low stone walls, a shallow reflecting pool and bands of dune grass frame a timber pavilion, holding a quiet courtyard between the house and the sea.",
+  "descriptionZh": "一座顺应海风的庭院。低矮石墙、浅水镜面与成带的沙草围合出木构凉亭，在住宅与海之间留下一处安静的院落。",
+  "tags": [
+    "Courtyard",
+    "Dune grass",
+    "Pavilion"
+  ],
+  "cover": "cover.webp",
+  "order": 5,
+  "theme": {
+    "background": "#EDE9DE",
+    "ink": "#1C1D18",
+    "accent": "#6C7A55",
+    "accentSoft": "#CFD0BC"
+  },
+  "type": "园林"
+}

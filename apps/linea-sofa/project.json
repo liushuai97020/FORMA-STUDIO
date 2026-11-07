@@ -1,0 +1,26 @@
+{
+  "index": "04",
+  "title": "Linea Sofa",
+  "subtitle": "模块化休闲沙发系统",
+  "category": "Living",
+  "year": "2026",
+  "medium": "Furniture / product CGI",
+  "location": "Lisbon, Portugal",
+  "area": "3-seater",
+  "description": "A low modular lounge built from soft, generous volumes. Linea is designed around the way a body settles — deep seats, a continuous back and a fabric that catches the afternoon light.",
+  "descriptionZh": "由柔软而宽大的体块组成的低矮模块沙发。深座、连续靠背，以及会在午后的光里改变表情的面料。",
+  "tags": [
+    "Sofa",
+    "Boucle",
+    "Modular"
+  ],
+  "cover": "cover.webp",
+  "order": 4,
+  "theme": {
+    "background": "#F3EEE6",
+    "ink": "#1C1A17",
+    "accent": "#A45E43",
+    "accentSoft": "#DCCBB8"
+  },
+  "type": "沙发"
+}

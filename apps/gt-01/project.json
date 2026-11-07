@@ -1,0 +1,26 @@
+{
+  "index": "03",
+  "title": "GT-01",
+  "subtitle": "纯电大型旅行轿跑概念车",
+  "category": "Mobility",
+  "year": "2026",
+  "medium": "Concept vehicle / CGI",
+  "location": "Munich, Germany",
+  "area": "Concept 01",
+  "description": "A low, uninterrupted surface study in speed and silence. The GT-01 reduces the grand tourer to a single gesture: a long hood, a glass canopy and one clean line from nose to tail.",
+  "descriptionZh": "关于速度与静谧的连续曲面研究。修长的车头、玻璃座舱与一条从车头延伸到车尾的干净线条，构成 GT-01 的全部。",
+  "tags": [
+    "Concept car",
+    "Electric",
+    "Studio"
+  ],
+  "cover": "cover.webp",
+  "order": 3,
+  "theme": {
+    "background": "#E9E8E4",
+    "ink": "#171819",
+    "accent": "#3C5B45",
+    "accentSoft": "#C7CEC2"
+  },
+  "type": "汽车"
+}

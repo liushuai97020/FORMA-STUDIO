@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Solstice House — FORMA</title>
+    <meta
+      name="description"
+      content="Solstice House — 海边一间安静的客厅。灰泥、橡木、羊羔绒与日光共同塑造的住宅室内设计研究。A warm interior study from the FORMA archive."
+    />
+    <meta name="theme-color" content="#EFE9DF" />
+    <meta name="color-scheme" content="light" />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <!-- WebGL interior stage. The whole viewport is the viewing surface. -->
+    <canvas id="stage" aria-hidden="true"></canvas>
+
+    <!-- Atmosphere: paper veil for the reveal, film grain, soft edge scrims. -->
+    <div class="scrim scrim--top" aria-hidden="true"></div>
+    <div class="scrim scrim--bottom" aria-hidden="true"></div>
+    <div class="vignette" aria-hidden="true"></div>
+    <div class="grain" aria-hidden="true"></div>
+    <div class="veil" aria-hidden="true"></div>
+
+    <main class="frame">
+      <header class="masthead">
+        <p class="slug" aria-label="第 02 号作品，Solstice House，室内设计">
+          <span class="slug__index">02</span>
+          <span class="slug__sep" aria-hidden="true">/</span>
+          <span class="slug__name" lang="en">Solstice House</span>
+          <span class="slug__sep" aria-hidden="true">/</span>
+          <span class="slug__category">室内设计</span>
+          <span class="slug__accent" lang="en">Interiors</span>
+        </p>
+      </header>
+
+      <footer class="colophon">
+        <div class="identity">
+          <h1 class="title" lang="en">Solstice <em>House</em></h1>
+          <p class="subtitle">海边一间安静的客厅</p>
+          <p class="subtitle-en" lang="en">A quiet room by the sea</p>
+          <p class="meta">
+            <span>里斯本，葡萄牙</span>
+            <span class="meta__dot" aria-hidden="true">·</span>
+            <span>住宅室内设计</span>
+            <span class="meta__dot" aria-hidden="true">·</span>
+            <span>86 m²</span>
+            <span class="meta__dot" aria-hidden="true">·</span>
+            <span>2026</span>
+          </p>
+        </div>
+
+        <div class="controls">
+          <p class="cue">
+            <svg class="cue__icon" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path
+                d="M8 1.6v12.8M1.6 8h12.8M8 1.6 5.9 3.7M8 1.6l2.1 2.1M8 14.4l-2.1-2.1M8 14.4l2.1-2.1M1.6 8l2.1-2.1M1.6 8l2.1 2.1M14.4 8l-2.1-2.1M14.4 8l-2.1 2.1"
+                stroke="currentColor"
+                stroke-width="1"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+            <span class="cue__zh">拖动环视房间</span>
+            <span class="cue__en" lang="en">Drag to orbit</span>
+          </p>
+
+          <div class="light" role="group" aria-label="房间光线">
+            <button
+              class="light__option is-active"
+              type="button"
+              data-mode="day"
+              aria-pressed="true"
+              aria-label="日光"
+            >
+              <svg class="light__icon" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <circle cx="8" cy="8" r="2.8" stroke="currentColor" stroke-width="1.1" />
+                <path
+                  d="M8 1.2v1.7M8 13.1v1.7M1.2 8h1.7M13.1 8h1.7M3.2 3.2l1.2 1.2M11.6 11.6l1.2 1.2M12.8 3.2l-1.2 1.2M4.4 11.6l-1.2 1.2"
+                  stroke="currentColor"
+                  stroke-width="1.1"
+                  stroke-linecap="round"
+                />
+              </svg>
+              <span>日光</span>
+            </button>
+            <button
+              class="light__option"
+              type="button"
+              data-mode="evening"
+              aria-pressed="false"
+              aria-label="暮色"
+            >
+              <svg class="light__icon" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <path
+                  d="M13.1 10.1A5.6 5.6 0 0 1 5.9 2.9a5.7 5.7 0 1 0 7.2 7.2Z"
+                  stroke="currentColor"
+                  stroke-width="1.1"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M11.4 1.8v1.5M13.9 4.3h-1.5"
+                  stroke="currentColor"
+                  stroke-width="1.1"
+                  stroke-linecap="round"
+                />
+              </svg>
+              <span>暮色</span>
+            </button>
+          </div>
+        </div>
+      </footer>
+    </main>
+
+    <p class="sr-only">
+      Solstice House 是一间位于里斯本海岸的切面式客厅。暖色灰泥墙、宽幅橡木地板托起低矮的羊羔绒转角沙发、
+      洞石咖啡桌、陶器、雕塑落地灯、橄榄树与一幅抽象画。落地玻璃把柔和的海平线引入室内，亚麻纱帘过滤日光。
+      拖动可小范围环视房间，切换日光与暮色可点亮室内暖灯。
+    </p>
+
+    <noscript>
+      <p class="no-script">Solstice House 需要启用 JavaScript 与 WebGL 才能呈现。</p>
+    </noscript>
+
+    <script type="module" src="./main.js"></script>
+  </body>
+</html>

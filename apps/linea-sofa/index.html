@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="light" />
+    <meta name="theme-color" content="#F3EEE6" />
+    <meta
+      name="description"
+      content="Linea Sofa — 低矮的模块化休闲沙发，深座、连续靠背与羊羔绒面料。FORMA 实时三维设计研究。"
+    />
+    <title>Linea Sofa — FORMA</title>
+    <script>
+      (function () {
+        try {
+          if (new URLSearchParams(window.location.search).has('cover')) {
+            document.documentElement.classList.add('is-cover');
+          }
+        } catch (error) {
+          /* no-op */
+        }
+      })();
+    </script>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <canvas id="scene" aria-hidden="true"></canvas>
+    <div class="scrim" aria-hidden="true"></div>
+    <div class="grain" aria-hidden="true"></div>
+    <div class="veil" aria-hidden="true"></div>
+
+    <main class="overlay" id="overlay">
+      <header class="plate">
+        <p class="plate__line">
+          <span class="plate__index">04</span>
+          <span class="plate__sep">/</span>
+          <span>Linea</span>
+          <span class="plate__sep">/</span>
+          <span class="plate__zh">家具</span>
+        </p>
+        <p class="plate__en">Furniture / Product CGI</p>
+      </header>
+
+      <div class="dock">
+        <section class="hero" aria-labelledby="study-title">
+          <h1 class="title" id="study-title">
+            <span class="title__line"><span class="title__word">Linea</span></span>
+            <span class="title__line"
+              ><span class="title__word title__word--italic">Sofa</span></span
+            >
+          </h1>
+          <p class="subtitle">模块化休闲沙发系统</p>
+          <p class="subtitle-en">Modular lounge system</p>
+          <p class="meta">
+            <span class="meta__materials">羊羔绒 · 橡木 · 洞石</span>
+            <span class="meta__year">2026</span>
+          </p>
+          <p class="meta meta--en">Bouclé wool · Oak · Travertine</p>
+        </section>
+
+        <aside class="side" aria-label="查看 Linea 沙发">
+          <div class="swatches">
+            <p class="swatches__label">
+              <span class="swatches__label-zh">面料</span>
+              <span class="swatches__label-en">Upholstery</span>
+            </p>
+            <div class="swatches__row" role="radiogroup" aria-label="选择面料颜色">
+              <button
+                type="button"
+                class="swatch"
+                role="radio"
+                aria-checked="true"
+                aria-label="沙色羊羔绒面料"
+                data-fabric="sand"
+                tabindex="0"
+                style="--chip: #c2a88b"
+              >
+                <span class="swatch__chip" aria-hidden="true"></span>
+              </button>
+              <button
+                type="button"
+                class="swatch"
+                role="radio"
+                aria-checked="false"
+                aria-label="橄榄绿羊羔绒面料"
+                data-fabric="olive"
+                tabindex="-1"
+                style="--chip: #767a5f"
+              >
+                <span class="swatch__chip" aria-hidden="true"></span>
+              </button>
+              <button
+                type="button"
+                class="swatch"
+                role="radio"
+                aria-checked="false"
+                aria-label="锈红羊羔绒面料"
+                data-fabric="rust"
+                tabindex="-1"
+                style="--chip: #a55c3f"
+              >
+                <span class="swatch__chip" aria-hidden="true"></span>
+              </button>
+            </div>
+            <p class="swatches__name">
+              <span class="swatches__name-zh" aria-live="polite">沙色</span>
+              <span class="swatches__name-en">Sand</span>
+            </p>
+          </div>
+
+          <p class="cue">
+            <span class="cue__icon" aria-hidden="true">
+              <svg viewBox="0 0 30 12" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M2 6h26" />
+                <path d="M6 2 2 6l4 4" />
+                <path d="m24 2 4 4-4 4" />
+              </svg>
+            </span>
+            <span class="cue__text">
+              <span class="cue__zh">拖动查看</span>
+              <span class="cue__en">Drag to inspect</span>
+            </span>
+          </p>
+        </aside>
+      </div>
+
+      <p class="sr-only">
+        Linea Sofa 是一组低矮的模块化休闲沙发：深座、连续靠背、宽大的羊羔绒坐垫与纤细的青铜支脚。
+        空间里搭配了洞石边几、手作陶器、脚凳与折叠羊毛毯。拖动画面可以环绕查看沙发，也可以选择沙色、橄榄绿或锈红三种羊羔绒面料。
+      </p>
+    </main>
+
+    <noscript>
+      <p class="noscript">Linea Sofa 以 WebGL 实时渲染，请启用 JavaScript 后查看。</p>
+    </noscript>
+
+    <script type="module" src="./main.js"></script>
+  </body>
+</html>

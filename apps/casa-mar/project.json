@@ -1,0 +1,26 @@
+{
+  "index": "01",
+  "title": "Casa Mar",
+  "subtitle": "临崖海滨住宅",
+  "category": "Space",
+  "year": "2026",
+  "medium": "Residential / coastal",
+  "location": "Comporta, Portugal",
+  "area": "420 m²",
+  "description": "A terraced beach house stepping down to the Atlantic. White volumes, oak screens and an infinity pool dissolve the boundary between architecture and horizon.",
+  "descriptionZh": "一座向大西洋层层展开的海滨住宅。白色体量、橡木格栅与无边际泳池，让建筑与海平线彼此消融。",
+  "tags": [
+    "Beach villa",
+    "Coastal",
+    "Concrete"
+  ],
+  "cover": "cover.webp",
+  "order": 1,
+  "theme": {
+    "background": "#F2ECE3",
+    "ink": "#1D1A17",
+    "accent": "#B8653F",
+    "accentSoft": "#DCC9B4"
+  },
+  "type": "建筑"
+}

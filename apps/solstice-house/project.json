@@ -1,0 +1,26 @@
+{
+  "index": "02",
+  "title": "Solstice House",
+  "subtitle": "海边一间安静的客厅",
+  "category": "Space",
+  "year": "2026",
+  "medium": "Residential interior",
+  "location": "Lisbon, Portugal",
+  "area": "86 m²",
+  "description": "A living room shaped by calm light, tactile plaster and the grain of oak. Furniture sits low and sparse, leaving the view and the changing daylight to do the work.",
+  "descriptionZh": "一间被柔和光线塑造的客厅。灰泥、橡木与低矮家具让空间保持安静，把视线和光线留给窗外的海。",
+  "tags": [
+    "Living room",
+    "Plaster",
+    "Oak"
+  ],
+  "cover": "cover.webp",
+  "order": 2,
+  "theme": {
+    "background": "#EFE9DF",
+    "ink": "#201D19",
+    "accent": "#8C6D45",
+    "accentSoft": "#D6C6B0"
+  },
+  "type": "室内"
+}

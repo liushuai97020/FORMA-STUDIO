@@ -1,0 +1,18 @@
+node_modules
+dist
+dist-ssr
+.vite
+.vercel
+.tmp
+*.local
+*.log
+.DS_Store
+playwright-report
+test-results
+
+# Local browser/test artifacts
+.preview/
+.tmp-browser/
+_preview*
+_webgltest*
+
