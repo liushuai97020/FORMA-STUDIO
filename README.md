@@ -32,13 +32,15 @@
 
 | 大类 | 包含的细分类型 | 当前项目 |
 | --- | --- | --- |
-| 空间 · Space | 建筑 / 室内 / 园林 / 商店 | Casa Mar（建筑）、Solstice House（室内）、Dune Garden（园林）、Qibai（江南别院） |
+| 空间 · Space | 建筑 / 室内 / 园林 / 商店 | Casa Mar（建筑）、Solstice House（室内）、Dune Garden（园林）、Qibai（江南别院）、檐下（路边咖啡店） |
 | 出行 · Mobility | 汽车 / 摩托 | GT-01（汽车） |
 | 家居 · Home & Living | 家居 / 家具 | Linea Sofa（沙发） |
 | 数码产品 · Digital Products | 数码产品 / 界面 | 新作筹备中 |
 | 服装 · Fashion | 服装 / 面料 | 新作筹备中 |
 | 彩妆 · Beauty | 彩妆 / 香氛 | 新作筹备中 |
 | 其它 · Other | 未分类项目 | 新作筹备中 |
+
+![檐下 · 路边咖啡店](docs/preview/roadside-cafe.webp)
 
 类别顺序、中文/英文名、首页标题、介绍与主题色集中维护在：
 
@@ -78,6 +80,7 @@ building-web/
 │  ├─ linea-sofa/                # 子项目 04
 │  ├─ dune-garden/               # 子项目 05
 │  ├─ qibai/                     # 子项目 06 · 江南别院（樱落·栖白）
+│  ├─ roadside-cafe/             # 子项目 07 · 檐下咖啡店
 │  └─ _template/                 # 新项目模板（不会参与构建）
 ├─ docs/
 │  ├─ adding-a-study.md          # 新项目完整指南
@@ -156,6 +159,7 @@ http://localhost:5173/apps/gt-01/
 http://localhost:5173/apps/linea-sofa/
 http://localhost:5173/apps/dune-garden/
 http://localhost:5173/apps/qibai/
+http://localhost:5173/apps/roadside-cafe/
 ```
 
 ---
@@ -203,6 +207,7 @@ npx vercel --prod
 /apps/linea-sofa/
 /apps/dune-garden/
 /apps/qibai/
+/apps/roadside-cafe/
 ```
 
 ---

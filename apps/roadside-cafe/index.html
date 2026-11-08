@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#F3E8DA" />
+    <meta
+      name="description"
+      content="檐下咖啡：杭州街角的一间小咖啡店。晴天的光、雨天的檐声、吧台后的店员与一杯慢慢做好的咖啡。FORMA 空间项目 07。"
+    />
+    <title>檐下 · 路边咖啡店｜FORMA</title>
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <link rel="stylesheet" href="./styles.css" />
+    <script>
+      (() => {
+        const params = new URLSearchParams(window.location.search);
+        const hero = params.has('cover') || params.get('embed') === 'hero';
+        document.documentElement.classList.toggle('is-cover', hero);
+        document.documentElement.classList.toggle('is-embed', !hero && params.get('embed') === '1');
+        if (hero) document.documentElement.classList.add('is-hero');
+        if (params.get('embed') === '1') document.documentElement.classList.add('has-parent-bar');
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="app">
+      <div id="scene" class="scene" role="img" aria-label="杭州街角的檐下咖啡店：暖灰泥立面、深色挑檐、临街大窗与吧台暖光；街上有人行道、路灯、电线杆和来往车辆"></div>
+      <div class="vignette" aria-hidden="true"></div>
+      <div class="grain" aria-hidden="true"></div>
+
+      <svg class="svg-defs" aria-hidden="true">
+        <symbol id="i-sun" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="4.1"></circle>
+          <path d="M12 2.4v2.3M12 19.3v2.3M2.4 12h2.3M19.3 12h2.3M5.2 5.2l1.6 1.6M17.2 17.2l1.6 1.6M18.8 5.2l-1.6 1.6M6.8 17.2l-1.6 1.6"></path>
+        </symbol>
+        <symbol id="i-rain" viewBox="0 0 24 24">
+          <path d="M6.1 15.2h11.2a3.4 3.4 0 0 0 .2-6.8 5.2 5.2 0 0 0-10-1.1 4 4 0 0 0-1.4 7.9Z"></path>
+          <path d="M8.2 17.7 7.4 20M12 17.7 11.2 20M15.8 17.7 15 20"></path>
+        </symbol>
+        <symbol id="i-enter" viewBox="0 0 24 24">
+          <path d="M13.5 4.5H19v15h-5.5"></path>
+          <path d="M4.5 12h10M10.5 7.8 14.7 12l-4.2 4.2"></path>
+        </symbol>
+        <symbol id="i-exit" viewBox="0 0 24 24">
+          <path d="M10.5 4.5H5v15h5.5"></path>
+          <path d="M19.5 12h-10M13.5 7.8 9.3 12l4.2 4.2"></path>
+        </symbol>
+        <symbol id="i-order" viewBox="0 0 24 24">
+          <rect x="4" y="3.5" width="16" height="12" rx="1.4"></rect>
+          <path d="M8 19.5h8M12 15.8v3.7M8 8.2h8M8 11.4h5.2"></path>
+        </symbol>
+        <symbol id="i-cabinet" viewBox="0 0 24 24">
+          <rect x="4.2" y="3.2" width="15.6" height="17.6" rx="1"></rect>
+          <path d="M4.2 11.6h15.6M12 3.2v17.6M8.4 7.2h1.2M14.4 15.6h1.2"></path>
+        </symbol>
+        <symbol id="i-cup" viewBox="0 0 24 24">
+          <path d="M5 8.5h11v5.2a4.2 4.2 0 0 1-4.2 4.2H9.2A4.2 4.2 0 0 1 5 13.7V8.5Z"></path>
+          <path d="M16 9.5h1.8a2.5 2.5 0 0 1 0 5H16M4 20.8h13"></path>
+          <path d="M8.2 5.4c0-1 1-1.3 1-2.2M12 5.4c0-1 1-1.3 1-2.2"></path>
+        </symbol>
+        <symbol id="i-tea" viewBox="0 0 24 24">
+          <path d="M6 7.5h12l-1.2 12.2H7.2L6 7.5Z"></path>
+          <path d="M5 7.5h14M12 4v3.5"></path>
+          <path d="M9.5 12.5c1.6-1.2 3.4-1.2 5 0M12 3.5c1.4-1 2.8-.6 3.4.4"></path>
+        </symbol>
+        <symbol id="i-close" viewBox="0 0 24 24">
+          <path d="M6 6l12 12M18 6 6 18"></path>
+        </symbol>
+        <symbol id="i-arrow" viewBox="0 0 24 24">
+          <path d="M4 12h15M13 5l7 7-7 7"></path>
+        </symbol>
+        <symbol id="i-check" viewBox="0 0 24 24">
+          <path d="m4.5 12.5 5 5 10-11"></path>
+        </symbol>
+        <symbol id="i-spark" viewBox="0 0 24 24">
+          <path d="M12 2.8c.6 4.5 2.4 6.3 6.9 6.9-4.5.6-6.3 2.4-6.9 6.9-.6-4.5-2.4-6.3-6.9-6.9 4.5-.6 6.3-2.4 6.9-6.9Z"></path>
+          <path d="M18.7 16.7c.3 2 1 2.7 3 3-2 .3-2.7 1-3 3-.3-2-1-2.7-3-3 2-.3 2.7-1 3-3Z"></path>
+        </symbol>
+        <symbol id="i-location" viewBox="0 0 24 24">
+          <path d="M12 21c4.3-4.6 6.4-8 6.4-10.8A6.4 6.4 0 0 0 5.6 10.2C5.6 13 7.7 16.4 12 21Z"></path>
+          <circle cx="12" cy="10.1" r="2.2"></circle>
+        </symbol>
+        <symbol id="i-orbit" viewBox="0 0 24 24">
+          <ellipse cx="12" cy="12" rx="9" ry="4.1" transform="rotate(-26 12 12)"></ellipse>
+          <circle cx="12" cy="12" r="2" fill="currentColor" stroke="none"></circle>
+        </symbol>
+      </svg>
+
+      <header class="site-header" id="siteHeader">
+        <div class="brand">
+          <span class="brand-seal" aria-hidden="true">檐</span>
+          <span class="brand-copy">
+            <strong>檐下咖啡</strong>
+            <em>EAVES · HANGZHOU</em>
+          </span>
+        </div>
+        <p class="site-index"><span>07</span> / 空间 · 建筑</p>
+      </header>
+
+      <div class="weather-dock" role="group" aria-label="天气">
+        <span class="weather-label">天气</span>
+        <div class="segmented weather-segmented">
+          <button type="button" class="weather-btn is-active" data-weather="sunny" aria-pressed="true">
+            <svg aria-hidden="true"><use href="#i-sun"></use></svg>
+            <span>晴天</span>
+          </button>
+          <button type="button" class="weather-btn" data-weather="rainy" aria-pressed="false">
+            <svg aria-hidden="true"><use href="#i-rain"></use></svg>
+            <span>雨天</span>
+          </button>
+        </div>
+        <span class="weather-readout" id="weatherReadout">晴 · 微风 2 级</span>
+      </div>
+
+      <section class="place-intro" id="placeIntro" aria-labelledby="placeTitle">
+        <p class="eyebrow"><span class="eyebrow-rule" aria-hidden="true"></span>杭州 · 街角咖啡店 / NO.07</p>
+        <div class="title-row">
+          <h1 id="placeTitle" class="place-title">檐下</h1>
+          <span class="title-en">EAVES<br />CAFÉ</span>
+        </div>
+        <p class="place-subtitle">路边咖啡店，晴天与雨天之间。</p>
+        <p class="place-lede">推门进去，找一个靠窗的位置。<br />看光在桌面上移动，或者听雨落在檐口。</p>
+        <dl class="place-stats">
+          <div><dt>86<small>m²</small></dt><dd>室内面积</dd></div>
+          <div><dt>12</dt><dd>个座位</dd></div>
+          <div><dt>2</dt><dd>种天气</dd></div>
+        </dl>
+        <p class="place-cue"><span class="cue-orbit" aria-hidden="true"></span>拖动环视街景 · 点击门或“进入咖啡店”</p>
+      </section>
+
+      <aside class="interior-hud" id="interiorHud" aria-hidden="true">
+        <p class="eyebrow"><span class="eyebrow-rule" aria-hidden="true"></span>室内 · 吧台 / THE COUNTER</p>
+        <h2>檐下咖啡</h2>
+        <p class="interior-note" id="interiorNote">点单电脑就在吧台上。陈列柜里有今天做的咖啡与果茶。</p>
+        <p class="interior-meta" id="interiorMeta">今日 · <span id="interiorWeather">晴</span> · 营业中</p>
+      </aside>
+
+      <div id="hotspots" class="hotspots" aria-label="场景交互点"></div>
+
+      <div class="dock" role="toolbar" aria-label="场景控制">
+        <div class="dock-actions">
+          <button type="button" class="dock-btn" id="btnOrder" aria-label="打开点单电脑">
+            <svg aria-hidden="true"><use href="#i-order"></use></svg>
+            <span>点单</span>
+          </button>
+          <button type="button" class="dock-btn" id="btnCabinet" aria-label="查看陈列柜">
+            <svg aria-hidden="true"><use href="#i-cabinet"></use></svg>
+            <span>陈列柜</span>
+          </button>
+          <span class="dock-divider" aria-hidden="true"></span>
+          <button type="button" class="dock-btn dock-btn--primary" id="btnEnter" aria-label="进入咖啡店">
+            <svg aria-hidden="true"><use href="#i-enter"></use></svg>
+            <span id="btnEnterLabel">进入咖啡店</span>
+          </button>
+        </div>
+        <p class="dock-hint" id="dockHint"><span class="hint-dot" aria-hidden="true"></span>点击门或按“进入咖啡店”，到吧台前点一杯</p>
+      </div>
+
+      <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+      <div class="modal" id="orderPanel" role="dialog" aria-modal="true" aria-labelledby="orderTitle" aria-hidden="true">
+        <div class="modal-card order-card">
+          <header class="modal-head">
+            <div>
+              <p class="eyebrow"><span class="eyebrow-rule" aria-hidden="true"></span>点单电脑 / ORDER</p>
+              <h2 id="orderTitle">今天想喝什么？</h2>
+            </div>
+            <button type="button" class="icon-btn modal-close" data-close="order" aria-label="关闭点单">
+              <svg aria-hidden="true"><use href="#i-close"></use></svg>
+            </button>
+          </header>
+
+          <div class="order-view" data-order-view="menu">
+            <div class="menu-tabs" role="tablist" aria-label="饮品类别">
+              <button type="button" class="menu-tab is-active" data-menu-tab="coffee" role="tab" aria-selected="true">咖啡</button>
+              <button type="button" class="menu-tab" data-menu-tab="tea" role="tab" aria-selected="false">果茶</button>
+            </div>
+            <div class="menu-grid" id="menuGrid"></div>
+            <p class="order-footnote">所有饮品现点现做。咖啡豆来自云南保山，果茶使用当季水果。</p>
+          </div>
+
+          <div class="order-view" data-order-view="prep" hidden>
+            <div class="prep-stage">
+              <div class="prep-cup" aria-hidden="true">
+                <span class="prep-cup-liquid"></span>
+                <span class="prep-steam prep-steam--one"></span>
+                <span class="prep-steam prep-steam--two"></span>
+                <span class="prep-steam prep-steam--three"></span>
+              </div>
+              <div class="prep-copy">
+                <p class="prep-kicker">正在制作 / IN THE MAKING</p>
+                <h3 id="prepDrink">燕麦拿铁</h3>
+                <p class="prep-en" id="prepDrinkEn">OAT LATTE</p>
+                <p class="prep-note" id="prepNote">咖啡师在吧台后开始磨豆。</p>
+              </div>
+            </div>
+            <div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="orderProgress">
+              <span class="progress-bar" id="orderBar"></span>
+            </div>
+            <ol class="prep-steps" id="prepSteps">
+              <li data-step="0">研磨咖啡豆</li>
+              <li data-step="1">萃取浓缩</li>
+              <li data-step="2">融合牛奶</li>
+              <li data-step="3">装杯出餐</li>
+            </ol>
+            <p class="prep-footnote">大约需要 5 秒 · 请稍等，咖啡马上就好。</p>
+          </div>
+
+          <div class="order-view" data-order-view="served" hidden>
+            <div class="served-mark" aria-hidden="true">
+              <svg><use href="#i-check"></use></svg>
+            </div>
+            <p class="prep-kicker">已出杯 / READY</p>
+            <h3 id="servedDrink">燕麦拿铁</h3>
+            <p class="served-en" id="servedDrinkEn">OAT LATTE</p>
+            <ul class="served-ingredients" id="servedIngredients"></ul>
+            <p class="served-note">请到吧台左侧取餐。杯套上写了你的名字。</p>
+            <div class="served-actions">
+              <button type="button" class="btn btn-primary" id="btnOrderAgain">再来一杯</button>
+              <button type="button" class="btn btn-ghost" id="btnOrderDone">回到咖啡店</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal" id="cabinetPanel" role="dialog" aria-modal="true" aria-labelledby="cabinetName" aria-hidden="true">
+        <div class="modal-card cabinet-card">
+          <button type="button" class="icon-btn modal-close cabinet-close" data-close="cabinet" aria-label="返回咖啡店">
+            <svg aria-hidden="true"><use href="#i-close"></use></svg>
+          </button>
+          <div class="cabinet-visual" id="cabinetVisual" aria-hidden="true">
+            <span class="cabinet-liquid"></span>
+            <span class="cabinet-straw"></span>
+            <span class="cabinet-label">檐下</span>
+          </div>
+          <p class="eyebrow"><span class="eyebrow-rule" aria-hidden="true"></span>陈列柜 / DISPLAY NO.<span id="cabinetNumber">01</span></p>
+          <h2 id="cabinetName">桂花乌龙冷萃</h2>
+          <p class="cabinet-en" id="cabinetEn">OSMANTHUS OOLONG COLD BREW</p>
+          <p class="cabinet-desc" id="cabinetDesc"></p>
+          <div class="cabinet-meta">
+            <span class="cabinet-price" id="cabinetPrice">¥ 28</span>
+            <span class="cabinet-tag" id="cabinetTag">咖啡</span>
+          </div>
+          <p class="cabinet-ingredients-label">原料 / INGREDIENTS</p>
+          <ul class="cabinet-ingredients" id="cabinetIngredients"></ul>
+          <div class="cabinet-nav">
+            <button type="button" class="cabinet-step" id="cabinetPrev" aria-label="上一款饮品">← 上一款</button>
+            <span class="cabinet-count" id="cabinetCount">01 / 07</span>
+            <button type="button" class="cabinet-step" id="cabinetNext" aria-label="下一款饮品">下一款 →</button>
+          </div>
+          <button type="button" class="btn btn-primary cabinet-back" id="cabinetBack">返回吧台</button>
+        </div>
+      </div>
+
+      <div class="loader" id="loader" aria-hidden="true">
+        <div class="loader-inner">
+          <span class="loader-mark">檐</span>
+          <p class="loader-kicker">EAVES · A CORNER CAFÉ</p>
+          <p class="loader-title">正在点亮檐下</p>
+          <span class="loader-line"><span id="loaderBar"></span></span>
+        </div>
+      </div>
+
+      <div class="fallback" id="fallback" hidden>
+        <div class="fallback-card">
+          <span class="fallback-mark">檐</span>
+          <p class="eyebrow">WEBGL NOT AVAILABLE</p>
+          <h2>这间咖啡店还没有开门</h2>
+          <p>当前浏览器未启用 WebGL，无法展开三维街景。请使用最新版 Chrome、Edge 或 Safari，并开启硬件加速后再试。</p>
+          <button type="button" class="btn btn-primary" id="btnReload">重新载入</button>
+        </div>
+      </div>
+
+      <noscript>
+        <div class="noscript">请启用 JavaScript 以进入檐下咖啡店。</div>
+      </noscript>
+    </div>
+
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>

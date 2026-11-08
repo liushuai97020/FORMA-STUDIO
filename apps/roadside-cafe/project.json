@@ -1,0 +1,22 @@
+{
+  "index": "07",
+  "title": "檐下",
+  "subtitle": "路边咖啡店，晴天与雨天之间",
+  "category": "Space",
+  "type": "建筑",
+  "year": "2026",
+  "medium": "咖啡店 / 街角建筑",
+  "location": "杭州，中国",
+  "area": "86 m²",
+  "description": "A small corner café on a quiet Hangzhou street: warm plaster, oak and a deep eave, with a barista, regulars, passing traffic and weather that changes the room from within.",
+  "descriptionZh": "一间藏在杭州街角的小咖啡店：暖灰泥、橡木与深挑檐。晴天看光在桌面移动，雨天听檐口落水；点一杯咖啡，看店员在吧台后慢慢做完。",
+  "tags": ["路边咖啡", "暖光", "街景", "天气"],
+  "order": 7,
+  "cover": "cover.webp",
+  "theme": {
+    "background": "#F3E8DA",
+    "ink": "#2A211A",
+    "accent": "#B4683F",
+    "accentSoft": "#E2C7AC"
+  }
+}
