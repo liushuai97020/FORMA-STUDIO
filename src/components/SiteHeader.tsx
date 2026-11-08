@@ -6,9 +6,10 @@ interface SiteHeaderProps {
   projects: ProjectRecord[];
   onOpenArchive: () => void;
   onJump: (target: 'work' | 'disciplines' | 'studio') => void;
+  onMenuChange?: (open: boolean) => void;
 }
 
-export default function SiteHeader({ projects, onOpenArchive, onJump }: SiteHeaderProps) {
+export default function SiteHeader({ projects, onOpenArchive, onJump, onMenuChange }: SiteHeaderProps) {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const closeRef = useRef<HTMLButtonElement>(null);
@@ -21,13 +22,20 @@ export default function SiteHeader({ projects, onOpenArchive, onJump }: SiteHead
   }, []);
 
   useEffect(() => {
+    onMenuChange?.(menuOpen);
+  }, [menuOpen, onMenuChange]);
+
+  useEffect(() => {
     document.body.classList.toggle('menu-open', menuOpen);
-    if (menuOpen) window.setTimeout(() => closeRef.current?.focus(), 120);
+    const focusTimer = menuOpen
+      ? window.setTimeout(() => closeRef.current?.focus(), 120)
+      : null;
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape' && menuOpen) setMenuOpen(false);
     };
     window.addEventListener('keydown', onKeyDown);
     return () => {
+      if (focusTimer !== null) window.clearTimeout(focusTimer);
       document.body.classList.remove('menu-open');
       window.removeEventListener('keydown', onKeyDown);
     };

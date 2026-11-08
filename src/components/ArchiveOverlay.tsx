@@ -22,6 +22,7 @@ export default function ArchiveOverlay({
   const [query, setQuery] = useState('');
   const closeRef = useRef<HTMLButtonElement>(null);
   const previousFocus = useRef<Element | null>(null);
+  const closeTimer = useRef<number | null>(null);
 
   const counts = useMemo(() => {
     const map = new Map<string, number>();
@@ -65,9 +66,24 @@ export default function ArchiveOverlay({
 
   const close = useCallback(() => {
     if (closing) return;
+    const isCompact = window.matchMedia('(max-width: 900px)').matches;
+    // On phones, close immediately: a delayed teardown reads as an
+    // unresponsive button when users tap repeatedly. Desktop keeps the
+    // full exit animation.
+    if (isCompact) {
+      onClose();
+      return;
+    }
     setClosing(true);
-    window.setTimeout(onClose, 480);
+    closeTimer.current = window.setTimeout(onClose, 480);
   }, [closing, onClose]);
+
+  useEffect(
+    () => () => {
+      if (closeTimer.current !== null) window.clearTimeout(closeTimer.current);
+    },
+    [],
+  );
 
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {

@@ -48,7 +48,7 @@ body {
 body.is-locked,
 body.menu-open {
   overflow: hidden;
-  height: 100svh;
+  overscroll-behavior: none;
 }
 
 #root {
@@ -561,6 +561,7 @@ canvas {
 
 /* Mobile menu */
 .mobile-menu {
+  pointer-events: none;
   position: fixed;
   inset: 0;
   z-index: 110;
@@ -579,6 +580,7 @@ canvas {
 }
 
 .mobile-menu.is-open {
+  pointer-events: auto;
   opacity: 1;
   visibility: visible;
   transform: translateY(0);
@@ -5080,5 +5082,64 @@ section[id] {
 @media (max-width: 1200px) {
   .category-rail__swipe {
     display: inline;
+  }
+}
+
+/* Keep the live preview loaded while overlays are open; pausing display
+   avoids WebGL work and removes the reload/freeze cycle on repeated toggles. */
+.live-preview__iframe.is-suspended {
+  display: none;
+}
+
+/* Mobile archive category pills: center the label inside the 38px pill. */
+@media (max-width: 900px) {
+  .archive__nav button {
+    align-items: center;
+    line-height: 1;
+  }
+
+  .archive__nav button > span:first-child {
+    display: inline-flex;
+    align-items: center;
+    min-height: 1em;
+  }
+}
+
+/* Mobile archive: use a cheap fade/slide instead of a full-screen clip-path
+   animation, and let the close action become available almost immediately. */
+@media (max-width: 900px) {
+  .archive {
+    clip-path: none;
+    opacity: 0;
+    transform: translateY(14px);
+    transition:
+      opacity 0.28s var(--ease),
+      transform 0.28s var(--ease);
+  }
+
+  .archive.is-open {
+    clip-path: none;
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .archive.is-closing {
+    clip-path: none;
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+
+/* Mobile controls should react on first tap; avoid double-tap zoom delay. */
+@media (max-width: 900px) {
+  .header-index,
+  .menu-toggle,
+  .mobile-menu__close,
+  .mobile-menu__nav button,
+  .mobile-menu__nav a,
+  .archive__close,
+  .archive__nav button,
+  .archive-row {
+    touch-action: manipulation;
   }
 }

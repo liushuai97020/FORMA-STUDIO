@@ -22,8 +22,12 @@ export default function App() {
   const [hoveredProjectSlug, setHoveredProjectSlug] = useState<string | null>(null);
   const [viewerSlug, setViewerSlug] = useState<string | null>(null);
   const [archiveOpen, setArchiveOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
   const [heroVisible, setHeroVisible] = useState(true);
   const [heroReady, setHeroReady] = useState(false);
+  const [livePreviewAllowed, setLivePreviewAllowed] = useState(
+    () => typeof window === 'undefined' || window.matchMedia('(min-width: 901px)').matches,
+  );
 
   const counts = useMemo(() => {
     const map = new Map<string, number>();
@@ -71,6 +75,14 @@ export default function App() {
     const timer = window.setTimeout(() => setHeroReady(true), 650);
     return () => window.clearTimeout(timer);
   }, [introDone]);
+
+  useEffect(() => {
+    const query = window.matchMedia('(min-width: 901px)');
+    const update = () => setLivePreviewAllowed(query.matches);
+    update();
+    query.addEventListener('change', update);
+    return () => query.removeEventListener('change', update);
+  }, []);
 
   useEffect(() => {
     const hero = document.getElementById('top');
@@ -202,6 +214,7 @@ export default function App() {
           projects={PROJECTS}
           onOpenArchive={() => setArchiveOpen(true)}
           onJump={handleJump}
+          onMenuChange={setMenuOpen}
         />
 
         <main>
@@ -266,7 +279,8 @@ export default function App() {
                   position={1}
                   categoryCount={activeProjects.length}
                   onOpen={() => leadProject && openProject(leadProject.slug)}
-                  enabled={introDone && heroReady && !overlaysOpen && heroVisible}
+                  enabled={introDone && heroReady && heroVisible && livePreviewAllowed}
+                  suspended={archiveOpen || Boolean(viewerProject) || menuOpen}
                 />
               </div>
             </div>

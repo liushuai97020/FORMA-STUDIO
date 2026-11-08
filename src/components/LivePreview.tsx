@@ -11,6 +11,8 @@ interface LivePreviewProps {
   onOpen: () => void;
   /** Only mount the live iframe once the opening sequence is over. */
   enabled: boolean;
+  /** Hide the iframe while a full-screen overlay is open without unloading it. */
+  suspended?: boolean;
 }
 
 export default function LivePreview({
@@ -20,6 +22,7 @@ export default function LivePreview({
   categoryCount,
   onOpen,
   enabled,
+  suspended = false,
 }: LivePreviewProps) {
   const [frameLoaded, setFrameLoaded] = useState(false);
   const [frameReady, setFrameReady] = useState(false);
@@ -56,7 +59,7 @@ export default function LivePreview({
           {enabled && project && (
             <iframe
               key={project.slug}
-              className={`live-preview__iframe${frameLoaded ? ' is-loaded' : ''}`}
+              className={`live-preview__iframe${frameLoaded ? ' is-loaded' : ''}${suspended ? ' is-suspended' : ''}`}
               src={`${project.base}?cover=1&embed=hero`}
               title={`${project.title} 实时三维预览`}
               tabIndex={-1}
@@ -94,7 +97,7 @@ export default function LivePreview({
         <div className="live-preview__hud live-preview__hud--top">
           <span className="live-preview__live">
             <span className="status-dot" aria-hidden="true" />
-            实时 3D 视口
+            {enabled ? '实时 3D 视口' : '三维视口预览'}
           </span>
           <span>
             {String(position).padStart(2, '0')} / {String(categoryCount).padStart(2, '0')} — {category.zh}
@@ -124,7 +127,11 @@ export default function LivePreview({
       </div>
 
       <div className="live-preview__caption">
-        <span>实时渲染的三维现场 · 打开模型即可进入</span>
+        <span>
+          {enabled
+            ? '实时渲染的三维现场 · 打开模型即可进入'
+            : '三维场景静帧 · 点击进入完整实时模型'}
+        </span>
         <span className="live-preview__scale">WEBGL / 3D</span>
       </div>
     </div>
