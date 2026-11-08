@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#f4eee3" />
+  <meta name="description" content="樱落·栖白，一座两层江南小别墅的数字庭院。白墙黛瓦，樱花满院，原木暖居。" />
+  <title>樱落 · 栖白｜江南两层小别墅</title>
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="./styles.css" />
+  <script>
+    (() => {
+      const params = new URLSearchParams(window.location.search);
+      const isCover = params.has('cover') || params.get('embed') === 'hero';
+      document.documentElement.classList.toggle('is-cover', isCover);
+      document.documentElement.classList.toggle('is-embed', !isCover && params.get('embed') === '1');
+    })();
+  </script>
+</head>
+<body>
+  <div id="app">
+    <div id="scene" class="scene" role="img" aria-label="可交互的三维江南两层小别墅：白墙黛瓦、樱花庭院、白色轿车与暖木室内"></div>
+    <div class="vignette" aria-hidden="true"></div>
+    <div class="grain" aria-hidden="true"></div>
+
+    <svg class="svg-defs" aria-hidden="true">
+      <symbol id="i-sun" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="4.2"></circle>
+        <path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M18.7 5.3l-1.6 1.6M6.9 17.1l-1.6 1.6"></path>
+      </symbol>
+      <symbol id="i-dusk" viewBox="0 0 24 24">
+        <path d="M3 17h18M6.5 17a5.5 5.5 0 0 1 11 0"></path>
+        <path d="M12 6.5v3M5.2 9.7l1.6 1.6M18.8 9.7l-1.6 1.6M2.5 20.5h19"></path>
+      </symbol>
+      <symbol id="i-moon" viewBox="0 0 24 24">
+        <path d="M19.3 14.4A7.7 7.7 0 0 1 9.6 4.7 7.7 7.7 0 1 0 19.3 14.4Z"></path>
+      </symbol>
+      <symbol id="i-petal" viewBox="0 0 24 24">
+        <path d="M12 21c-4.7 0-8.5-3.7-8.5-8.3C3.5 7.3 7.3 3 12 3s8.5 4.3 8.5 9.7C20.5 17.3 16.7 21 12 21Z"></path>
+        <path d="M12 21c0-5.3 1.8-9.4 5.1-12.1"></path>
+        <path d="M12 21c0-3.5-1.2-6.6-3.4-9.1"></path>
+      </symbol>
+      <symbol id="i-section" viewBox="0 0 24 24">
+        <path d="M4 4h7v16H4zM11 4h9v10h-9zM11 14h4v6h-4z"></path>
+        <path d="M2.5 12h19" stroke-dasharray="2 3"></path>
+      </symbol>
+      <symbol id="i-orbit" viewBox="0 0 24 24">
+        <ellipse cx="12" cy="12" rx="9" ry="4.2" transform="rotate(-28 12 12)"></ellipse>
+        <circle cx="12" cy="12" r="2.2" fill="currentColor" stroke="none"></circle>
+        <circle cx="19.1" cy="8.1" r="1.1" fill="currentColor" stroke="none"></circle>
+      </symbol>
+      <symbol id="i-wind" viewBox="0 0 24 24">
+        <path d="M3 8h11.2a3 3 0 1 0-2.9-3.8M3 12h15.2a3 3 0 1 1-2.9 3.8M3 16h7.3a2.5 2.5 0 1 1-2.4 3.2"></path>
+      </symbol>
+      <symbol id="i-close" viewBox="0 0 24 24">
+        <path d="M6 6l12 12M18 6L6 18"></path>
+      </symbol>
+      <symbol id="i-arrow" viewBox="0 0 24 24">
+        <path d="M4 12h15M13 5l7 7-7 7"></path>
+      </symbol>
+      <symbol id="i-compass" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="8.6"></circle>
+        <path d="M14.9 9.1l-1.7 4.1-4.1 1.7 1.7-4.1z"></path>
+        <path d="M12 3.4v1.4"></path>
+      </symbol>
+      <symbol id="i-car" viewBox="0 0 24 24">
+        <path d="M3.2 14.2l1.4-3.8a2.3 2.3 0 0 1 2.1-1.5h10.6a2.3 2.3 0 0 1 2.1 1.5l1.4 3.8"></path>
+        <path d="M2.9 14.2h18.2v4.5H2.9z"></path>
+        <circle cx="7.2" cy="18.9" r="1.45"></circle>
+        <circle cx="16.8" cy="18.9" r="1.45"></circle>
+        <path d="M9.1 12.9h5.8M5.3 14.2v-1.1M18.7 14.2v-1.1"></path>
+      </symbol>
+    </svg>
+
+    <header class="topbar">
+      <a class="brand" href="./" data-view="courtyard" aria-label="栖白，回到庭院">
+        <span class="brand-seal" aria-hidden="true">栖</span>
+        <span class="brand-word">
+          <strong>栖白</strong>
+          <em>QĪBÁI</em>
+        </span>
+        <span class="brand-rule" aria-hidden="true"></span>
+        <span class="brand-sub">江南小墅<br />JIANGNAN VILLA</span>
+      </a>
+
+      <nav class="topnav" aria-label="主导航">
+        <button type="button" data-view="courtyard">庭院</button>
+        <button type="button" data-view="architecture">建筑</button>
+        <button type="button" data-view="living">室内</button>
+        <button type="button" data-about>设计</button>
+      </nav>
+
+      <div class="topmeta">
+        <span class="live-dot" aria-hidden="true"></span>
+        <span id="statusText" class="status-text">苏州 · 暮色 18:42</span>
+        <button type="button" id="aboutBtn" class="meta-link" data-about>项目档案</button>
+      </div>
+    </header>
+
+    <section class="hero" aria-labelledby="heroTitle">
+      <p class="eyebrow"><span class="eyebrow-rule" aria-hidden="true"></span>SUZHOU · JIANGNAN VILLA / NO.01</p>
+      <div class="hero-title-wrap">
+        <h1 id="heroTitle" class="hero-title">
+          <span class="title-line">樱落</span>
+          <span class="title-line title-line-indent">栖白</span>
+        </h1>
+        <span class="hero-seal" aria-hidden="true">栖<br />白</span>
+      </div>
+      <p class="hero-copy">白墙黛瓦，樱雨入庭。<br />一座两层江南小墅，把春天留在院子里。</p>
+      <dl class="hero-stats" aria-label="项目数据">
+        <div><dt>286<small>㎡</small></dt><dd>建筑面积</dd></div>
+        <div><dt>2<small>F</small></dt><dd>建筑层数</dd></div>
+        <div><dt>4<small>室2厅</small></dt><dd>内部格局</dd></div>
+        <div><dt>210<small>㎡</small></dt><dd>庭院面积</dd></div>
+      </dl>
+      <div class="hero-actions">
+        <button type="button" class="btn btn-primary" data-view="courtyard">
+          庭院漫游
+          <svg aria-hidden="true"><use href="#i-arrow"></use></svg>
+        </button>
+        <button type="button" class="btn btn-ghost" data-view="living">室内一览</button>
+      </div>
+      <p class="hero-hint"><span class="mouse-orbit" aria-hidden="true"></span>拖动旋转 · 滚轮缩放 · 点击光点探索</p>
+    </section>
+
+    <aside class="view-rail" aria-label="镜头视角">
+      <div class="rail-head">
+        <svg aria-hidden="true"><use href="#i-compass"></use></svg>
+        <span>VIEWS</span>
+        <em>视角</em>
+      </div>
+      <button type="button" class="rail-btn is-active" data-view="courtyard">
+        <span class="rail-index">01</span><span class="rail-label">庭院</span><span class="rail-en">COURTYARD</span>
+      </button>
+      <button type="button" class="rail-btn" data-view="architecture">
+        <span class="rail-index">02</span><span class="rail-label">建筑</span><span class="rail-en">ARCHITECTURE</span>
+      </button>
+      <button type="button" class="rail-btn" data-view="living">
+        <span class="rail-index">03</span><span class="rail-label">会客厅</span><span class="rail-en">LIVING ROOM</span>
+      </button>
+      <button type="button" class="rail-btn" data-view="bedroom">
+        <span class="rail-index">04</span><span class="rail-label">主卧</span><span class="rail-en">MASTER SUITE</span>
+      </button>
+      <button type="button" class="rail-btn" data-view="aerial">
+        <span class="rail-index">05</span><span class="rail-label">鸟瞰</span><span class="rail-en">AERIAL</span>
+      </button>
+    </aside>
+
+    <div id="hotspots" class="hotspots" aria-label="空间探索热点"></div>
+
+    <aside id="roomPanel" class="room-panel" aria-hidden="true" aria-live="polite">
+      <button type="button" class="panel-close" id="panelClose" aria-label="关闭空间详情">
+        <svg aria-hidden="true"><use href="#i-close"></use></svg>
+      </button>
+      <p class="panel-eyebrow" id="panelIndex">01 / SPACE</p>
+      <h2 id="panelTitle">会客厅</h2>
+      <p class="panel-en" id="panelEn">THE LIVING ROOM</p>
+      <span class="panel-rule" aria-hidden="true"></span>
+      <p class="panel-desc" id="panelDesc"></p>
+      <dl class="panel-specs" id="panelSpecs"></dl>
+      <div class="panel-materials" id="panelMaterials"></div>
+      <p class="panel-note" id="panelNote">点击“前往空间”可切换镜头。</p>
+      <button type="button" class="panel-go" id="panelGo">前往空间<svg aria-hidden="true"><use href="#i-arrow"></use></svg></button>
+    </aside>
+
+    <div class="dock" role="toolbar" aria-label="场景控制">
+      <div class="dock-block dock-light" role="group" aria-label="光照模式">
+        <span class="dock-label">光照</span>
+        <div class="segmented">
+          <button type="button" class="light-btn" data-light="day" aria-pressed="false" aria-label="晨光">
+            <svg aria-hidden="true"><use href="#i-sun"></use></svg><span>晨光</span>
+          </button>
+          <button type="button" class="light-btn is-active" data-light="dusk" aria-pressed="true" aria-label="黄昏">
+            <svg aria-hidden="true"><use href="#i-dusk"></use></svg><span>黄昏</span>
+          </button>
+          <button type="button" class="light-btn" data-light="night" aria-pressed="false" aria-label="夜幕">
+            <svg aria-hidden="true"><use href="#i-moon"></use></svg><span>夜幕</span>
+          </button>
+        </div>
+      </div>
+      <span class="dock-divider" aria-hidden="true"></span>
+      <div class="dock-block">
+        <button type="button" id="petalToggle" class="tool-btn is-on" aria-pressed="true" aria-label="樱花雨">
+          <svg aria-hidden="true"><use href="#i-petal"></use></svg><span>樱花雨</span>
+        </button>
+        <label class="wind-control" for="windSlider">
+          <svg aria-hidden="true"><use href="#i-wind"></use></svg>
+          <span class="wind-label">风</span>
+          <input id="windSlider" type="range" min="0" max="100" value="55" step="1" aria-label="风力" />
+          <span id="windValue" class="wind-value">2级</span>
+        </label>
+        <button type="button" id="cutawayToggle" class="tool-btn" aria-pressed="false" aria-label="剖切">
+          <svg aria-hidden="true"><use href="#i-section"></use></svg><span>剖切</span>
+        </button>
+        <button type="button" id="orbitToggle" class="tool-btn" aria-pressed="false" aria-label="自动环游">
+          <svg aria-hidden="true"><use href="#i-orbit"></use></svg><span>环游</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="corner-note" aria-hidden="true">
+      <span>31.2989° N</span>
+      <span>120.5853° E</span>
+      <span class="corner-season">春 · 樱</span>
+    </div>
+
+    <button type="button" id="carAction" class="car-action" aria-pressed="false" aria-label="车辆驶出院子">
+      <span class="car-action-icon" aria-hidden="true">
+        <svg><use href="#i-car"></use></svg>
+      </span>
+      <span class="car-action-copy">
+        <strong id="carActionLabel">车辆驶出</strong>
+        <em id="carActionSub">CAR · PARKED</em>
+      </span>
+    </button>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+    <div id="loader" class="loader">
+      <div class="loader-inner">
+        <div class="loader-seal" aria-hidden="true">栖</div>
+        <p class="loader-kicker">A JIANGNAN COURTYARD</p>
+        <p class="loader-title">正在构建庭院</p>
+        <div class="loader-track"><span id="loaderBar"></span></div>
+        <p class="loader-meta">PROCEDURAL ARCHITECTURE · THREE.JS</p>
+      </div>
+    </div>
+
+    <div id="fallback" class="fallback" hidden>
+      <div class="fallback-card">
+        <span class="fallback-seal">栖</span>
+        <p class="fallback-kicker">WEBGL NOT AVAILABLE</p>
+        <h2>庭院暂未展开</h2>
+        <p>当前浏览器未启用 WebGL2，无法渲染三维场景。请使用最新版 Chrome、Edge 或 Safari，并开启硬件加速后重新打开。</p>
+        <button type="button" class="btn btn-primary" onclick="location.reload()">重新载入</button>
+      </div>
+    </div>
+
+    <dialog id="aboutDialog" class="about-dialog">
+      <div class="about-head">
+        <div>
+          <p class="eyebrow"><span class="eyebrow-rule"></span>PROJECT FILE / 2026</p>
+          <h2>栖白 · 设计说明</h2>
+        </div>
+        <form method="dialog"><button type="submit" class="panel-close" aria-label="关闭设计说明"><svg aria-hidden="true"><use href="#i-close"></use></svg></button></form>
+      </div>
+      <div class="about-body">
+        <p class="about-lede">白墙为纸，黛瓦为墨，樱雨为句读。</p>
+        <p>项目以江南小别墅为原型，将两层起居空间围合于一方庭院之中。入口偏东，车行门独立设置；樱花树偏西生长，春日花冠越过院墙，花瓣随风落向石板、车顶与阶前。建筑不做过度装饰，让白墙、深瓦与木格栅成为时间的背景。</p>
+        <p>室内以白蜡木、胡桃木、洞石与亚麻构成温暖的触感层次，2700K 灯光在黄昏后逐渐显现。剖切模式移除屋顶与南向立面，将客厅、茶室与主卧暴露为可阅读的空间剖面。</p>
+        <div class="about-grid">
+          <div><span>建筑</span><strong>286 ㎡ / 2F</strong></div>
+          <div><span>庭院</span><strong>210 ㎡</strong></div>
+          <div><span>格局</span><strong>4 室 2 厅</strong></div>
+          <div><span>风格</span><strong>江南 · 原木暖居</strong></div>
+        </div>
+        <div class="about-materials" aria-label="材质色板">
+          <span style="--swatch:#f1ebdf">白墙</span>
+          <span style="--swatch:#3a3e40">黛瓦</span>
+          <span style="--swatch:#8d5c3a">胡桃木</span>
+          <span style="--swatch:#ded2be">亚麻</span>
+          <span style="--swatch:#b08a55">黄铜</span>
+          <span style="--swatch:#c57f8b">樱粉</span>
+        </div>
+        <p class="about-small">交互指南：拖动旋转，滚轮/双指缩放，右键或双指平移；右侧视角与庭院光点均可切换镜头；底部控制台调整光照、樱花与剖切。三维场景由程序化几何与 Canvas 材质生成，Three.js 以 MIT License 使用。</p>
+      </div>
+    </dialog>
+
+    <noscript>
+      <div class="noscript">请启用 JavaScript 以浏览三维庭院。</div>
+    </noscript>
+  </div>
+
+  <script type="module" src="./src/main.js"></script>
+</body>
+</html>
+

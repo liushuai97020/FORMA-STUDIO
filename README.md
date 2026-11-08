@@ -32,7 +32,7 @@
 
 | 大类 | 包含的细分类型 | 当前项目 |
 | --- | --- | --- |
-| 空间 · Space | 建筑 / 室内 / 园林 / 商店 | Casa Mar（建筑）、Solstice House（室内）、Dune Garden（园林） |
+| 空间 · Space | 建筑 / 室内 / 园林 / 商店 | Casa Mar（建筑）、Solstice House（室内）、Dune Garden（园林）、Qibai（江南别院） |
 | 出行 · Mobility | 汽车 / 摩托 | GT-01（汽车） |
 | 家居 · Home & Living | 家居 / 家具 | Linea Sofa（沙发） |
 | 数码产品 · Digital Products | 数码产品 / 界面 | 新作筹备中 |
@@ -77,6 +77,7 @@ building-web/
 │  ├─ gt-01/                     # 子项目 03
 │  ├─ linea-sofa/                # 子项目 04
 │  ├─ dune-garden/               # 子项目 05
+│  ├─ qibai/                     # 子项目 06 · 江南别院（樱落·栖白）
 │  └─ _template/                 # 新项目模板（不会参与构建）
 ├─ docs/
 │  ├─ adding-a-study.md          # 新项目完整指南
@@ -154,6 +155,7 @@ http://localhost:5173/apps/solstice-house/
 http://localhost:5173/apps/gt-01/
 http://localhost:5173/apps/linea-sofa/
 http://localhost:5173/apps/dune-garden/
+http://localhost:5173/apps/qibai/
 ```
 
 ---
@@ -200,6 +202,7 @@ npx vercel --prod
 /apps/gt-01/
 /apps/linea-sofa/
 /apps/dune-garden/
+/apps/qibai/
 ```
 
 ---

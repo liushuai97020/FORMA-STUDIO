@@ -1,0 +1,27 @@
+{
+  "index": "06",
+  "title": "Qibai",
+  "subtitle": "樱落 · 栖白，江南两层小院",
+  "category": "Space",
+  "type": "建筑",
+  "year": "2026",
+  "medium": "住宅 / 江南庭院",
+  "location": "苏州，中国",
+  "area": "286 m²",
+  "description": "A two-storey Jiangnan courtyard villa in Suzhou: white walls, dark tiles, cherry-blossom rain, warm timber interiors and a white car, rendered as an explorable spring dusk.",
+  "descriptionZh": "白墙黛瓦，樱雨入庭。两层江南小院、暖木室内与一辆白色轿车，被收进一场可漫游的春日黄昏。",
+  "tags": [
+    "江南别院",
+    "庭院",
+    "樱花",
+    "程序化三维"
+  ],
+  "order": 6,
+  "theme": {
+    "background": "#F4EEE3",
+    "ink": "#211F1A",
+    "accent": "#9E5F6C",
+    "accentSoft": "#E7BFC4"
+  },
+  "cover": "cover.webp"
+}
