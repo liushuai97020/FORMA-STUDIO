@@ -25,21 +25,23 @@ export function createStage(container) {
   const controls = new OrbitControls(camera, renderer.domElement);
   controls.enableDamping = true;
   controls.dampingFactor = 0.075;
-  controls.rotateSpeed = 0.52;
-  controls.zoomSpeed = 0.7;
+  controls.rotateSpeed = 0.46;
+  controls.zoomSpeed = 0.68;
   controls.enablePan = false;
-  controls.minDistance = 10;
-  controls.maxDistance = 36;
-  controls.minPolarAngle = 0.85;
-  controls.maxPolarAngle = 1.42;
-  controls.minAzimuthAngle = -0.82;
-  controls.maxAzimuthAngle = 0.82;
-  controls.target.set(0.2, 2.9, 0.1);
+  controls.minDistance = 18;
+  controls.maxDistance = 58;
+  controls.minPolarAngle = 0.48;
+  controls.maxPolarAngle = 1.23;
+  controls.minAzimuthAngle = -0.95;
+  controls.maxAzimuthAngle = 0.95;
+  controls.target.set(0.2, 0.6, -1.6);
   controls.update();
 
-  const environment = createEnvironmentMap(renderer);
+  const environmentDay = createEnvironmentMap(renderer, 'day');
+  const environmentNight = createEnvironmentMap(renderer, 'night');
+  const environment = environmentNight;
   scene.environment = environment;
-  if ('environmentIntensity' in scene) scene.environmentIntensity = 0.78;
+  if ('environmentIntensity' in scene) scene.environmentIntensity = 0.36;
 
   function resize() {
     const width = container.clientWidth || window.innerWidth;
@@ -60,11 +62,15 @@ export function createStage(container) {
     camera,
     controls,
     environment,
+    environments: { day: environmentDay, night: environmentNight },
     resize,
     dispose() {
       observer.disconnect();
       controls.dispose();
+      environmentDay.dispose();
+      environmentNight.dispose();
       renderer.dispose();
     }
   };
 }
+

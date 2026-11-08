@@ -14,9 +14,9 @@
   "order": 7,
   "cover": "cover.webp",
   "theme": {
-    "background": "#F3E8DA",
-    "ink": "#2A211A",
-    "accent": "#B4683F",
-    "accentSoft": "#E2C7AC"
+    "background": "#080C15",
+    "ink": "#F4ECE2",
+    "accent": "#E7A064",
+    "accentSoft": "#3B3143"
   }
 }

@@ -44,6 +44,200 @@ function speckle(ctx, width, height, random, count, colors, max = 1.6) {
   }
 }
 
+function createBumpTexture(seed = 1, size = 512, strength = 1) {
+  const { canvas, ctx } = makeCanvas(size, size);
+  const random = rng(seed);
+  ctx.fillStyle = '#808080';
+  ctx.fillRect(0, 0, size, size);
+  for (let i = 0; i < 7500; i += 1) {
+    const shade = 128 + ((random() - 0.5) * 46 * strength) | 0;
+    ctx.fillStyle = `rgba(${shade}, ${shade}, ${shade}, 0.42)`;
+    const radius = 0.4 + random() * 3.4;
+    ctx.beginPath();
+    ctx.arc(random() * size, random() * size, radius, 0, Math.PI * 2);
+    ctx.fill();
+  }
+  for (let i = 0; i < 26; i += 1) {
+    const x = random() * size;
+    const y = random() * size;
+    const gradient = ctx.createRadialGradient(x, y, 0, x, y, 30 + random() * 100);
+    gradient.addColorStop(0, random() > 0.5 ? 'rgba(170,170,170,0.22)' : 'rgba(86,86,86,0.22)');
+    gradient.addColorStop(1, 'rgba(128,128,128,0)');
+    ctx.fillStyle = gradient;
+    ctx.fillRect(x - 120, y - 120, 240, 240);
+  }
+  return toTexture(canvas, { repeat: [2, 2], srgb: false });
+}
+
+function createGrimeTexture() {
+  const size = 512;
+  const { canvas, ctx } = makeCanvas(size, size);
+  const random = rng(8123);
+  ctx.clearRect(0, 0, size, size);
+  for (let i = 0; i < 34; i += 1) {
+    const x = random() * size;
+    const length = 60 + random() * 330;
+    const width = 5 + random() * 30;
+    const gradient = ctx.createLinearGradient(x, 0, x, length);
+    gradient.addColorStop(0, `rgba(32, 22, 16, ${0.12 + random() * 0.22})`);
+    gradient.addColorStop(0.7, `rgba(42, 30, 22, ${0.06 + random() * 0.1})`);
+    gradient.addColorStop(1, 'rgba(30, 20, 15, 0)');
+    ctx.fillStyle = gradient;
+    ctx.fillRect(x, 0, width, length);
+  }
+  for (let i = 0; i < 18; i += 1) {
+    const x = random() * size;
+    const y = 60 + random() * (size - 120);
+    const gradient = ctx.createRadialGradient(x, y, 0, x, y, 30 + random() * 90);
+    gradient.addColorStop(0, `rgba(28, 20, 15, ${0.08 + random() * 0.12})`);
+    gradient.addColorStop(1, 'rgba(28, 20, 15, 0)');
+    ctx.fillStyle = gradient;
+    ctx.fillRect(0, 0, size, size);
+  }
+  /* Horizontal damp tide marks. */
+  for (let i = 0; i < 8; i += 1) {
+    const y = 100 + random() * 360;
+    ctx.fillStyle = `rgba(26, 18, 13, ${0.04 + random() * 0.06})`;
+    ctx.fillRect(0, y, size, 1 + random() * 4);
+  }
+  return toTexture(canvas, { repeat: [2, 2] });
+}
+
+export function createGlowTexture(kind = 'warm') {
+  const size = 256;
+  const { canvas, ctx } = makeCanvas(size, size);
+  const gradient = ctx.createRadialGradient(size / 2, size / 2, 0, size / 2, size / 2, size / 2);
+  if (kind === 'violet') {
+    gradient.addColorStop(0, 'rgba(220, 170, 255, 0.9)');
+    gradient.addColorStop(0.18, 'rgba(160, 95, 235, 0.5)');
+    gradient.addColorStop(0.55, 'rgba(95, 55, 160, 0.12)');
+    gradient.addColorStop(1, 'rgba(40, 20, 80, 0)');
+  } else if (kind === 'cool') {
+    gradient.addColorStop(0, 'rgba(220, 238, 255, 0.8)');
+    gradient.addColorStop(0.25, 'rgba(145, 180, 230, 0.35)');
+    gradient.addColorStop(1, 'rgba(40, 60, 100, 0)');
+  } else {
+    gradient.addColorStop(0, 'rgba(255, 235, 195, 0.95)');
+    gradient.addColorStop(0.16, 'rgba(255, 185, 110, 0.62)');
+    gradient.addColorStop(0.52, 'rgba(200, 110, 50, 0.14)');
+    gradient.addColorStop(1, 'rgba(80, 35, 15, 0)');
+  }
+  ctx.fillStyle = gradient;
+  ctx.fillRect(0, 0, size, size);
+  return toTexture(canvas, { repeat: [1, 1] });
+}
+
+export function createReflectionTexture(kind = 'warm') {
+  const width = 256;
+  const height = 1024;
+  const { canvas, ctx } = makeCanvas(width, height);
+  const gradient = ctx.createLinearGradient(0, 0, 0, height);
+  if (kind === 'violet') {
+    gradient.addColorStop(0, 'rgba(120, 70, 170, 0)');
+    gradient.addColorStop(0.18, 'rgba(170, 95, 235, 0.3)');
+    gradient.addColorStop(0.6, 'rgba(80, 50, 140, 0.12)');
+    gradient.addColorStop(1, 'rgba(10, 8, 20, 0)');
+  } else {
+    gradient.addColorStop(0, 'rgba(255, 214, 150, 0)');
+    gradient.addColorStop(0.15, 'rgba(255, 180, 100, 0.45)');
+    gradient.addColorStop(0.52, 'rgba(220, 120, 55, 0.16)');
+    gradient.addColorStop(1, 'rgba(10, 8, 20, 0)');
+  }
+  ctx.fillStyle = gradient;
+  ctx.fillRect(0, 0, width, height);
+  for (let i = 0; i < 80; i += 1) {
+    ctx.fillStyle = `rgba(255, 255, 255, ${Math.random() * 0.06})`;
+    ctx.fillRect(Math.random() * width, Math.random() * height, 1 + Math.random() * 2, 8 + Math.random() * 70);
+  }
+  return toTexture(canvas, { repeat: [1, 1], srgb: false });
+}
+
+/* A luminous painted interior for the shop windows. It is seen only from the
+   street side (the interior camera sits in front of it), giving the façade the
+   dense, warm depth of a real late-night café without extra geometry. */
+function createStorefrontInteriorTexture() {
+  const { canvas, ctx } = makeCanvas(1024, 512);
+  const gradient = ctx.createLinearGradient(0, 0, 0, 512);
+  gradient.addColorStop(0, '#8a4c28');
+  gradient.addColorStop(0.14, '#f4d2a8');
+  gradient.addColorStop(0.34, '#d69a5c');
+  gradient.addColorStop(0.56, '#a86636');
+  gradient.addColorStop(0.78, '#59331d');
+  gradient.addColorStop(1, '#1b100b');
+  ctx.fillStyle = gradient;
+  ctx.fillRect(0, 0, 1024, 512);
+
+  const ceiling = ctx.createLinearGradient(0, 0, 0, 185);
+  ceiling.addColorStop(0, 'rgba(255, 243, 214, 0.9)');
+  ceiling.addColorStop(0.45, 'rgba(255, 190, 110, 0.38)');
+  ceiling.addColorStop(1, 'rgba(255, 154, 72, 0)');
+  ctx.fillStyle = ceiling;
+  ctx.fillRect(0, 0, 1024, 300);
+
+  ctx.fillStyle = '#1a110b';
+  ctx.fillRect(0, 124, 1024, 30);
+  const bottleColors = ['#b26e34', '#d1a45e', '#72804f', '#e4b979', '#a95534', '#caa16a'];
+  for (let row = 0; row < 3; row += 1) {
+    const y = 182 + row * 62;
+    ctx.fillStyle = '#24170f';
+    ctx.fillRect(0, y, 1024, 10);
+    for (let i = 0; i < 26; i += 1) {
+      const bx = 22 + i * 38;
+      ctx.globalAlpha = 0.75;
+      ctx.fillStyle = bottleColors[(i + row) % bottleColors.length];
+      ctx.fillRect(bx, y - 27, 7, 27);
+      ctx.fillRect(bx + 2, y - 34, 3, 7);
+      ctx.globalAlpha = 1;
+    }
+  }
+
+  ctx.fillStyle = '#0e0b09';
+  ctx.fillRect(382, 222, 258, 64);
+  ctx.strokeStyle = 'rgba(246, 217, 172, 0.5)';
+  ctx.lineWidth = 2;
+  ctx.strokeRect(382, 222, 258, 64);
+  ctx.fillStyle = 'rgba(247, 227, 198, 0.8)';
+  ctx.fillRect(402, 240, 70, 5);
+  ctx.fillRect(402, 254, 120, 3);
+  ctx.fillRect(402, 264, 94, 3);
+
+  for (const lx of [150, 512, 870]) {
+    ctx.fillStyle = 'rgba(8, 7, 6, 0.9)';
+    ctx.fillRect(lx - 2, 0, 4, 64);
+    ctx.fillStyle = '#a87543';
+    ctx.beginPath();
+    ctx.moveTo(lx - 30, 96);
+    ctx.lineTo(lx + 30, 96);
+    ctx.lineTo(lx + 16, 71);
+    ctx.lineTo(lx - 16, 71);
+    ctx.closePath();
+    ctx.fill();
+    const glow = ctx.createRadialGradient(lx, 106, 1, lx, 106, 84);
+    glow.addColorStop(0, 'rgba(255, 245, 213, 1)');
+    glow.addColorStop(0.1, 'rgba(255, 201, 127, 0.8)');
+    glow.addColorStop(0.45, 'rgba(255, 150, 70, 0.14)');
+    glow.addColorStop(1, 'rgba(255, 140, 70, 0)');
+    ctx.fillStyle = glow;
+    ctx.fillRect(lx - 90, 18, 180, 180);
+  }
+
+  const counter = ctx.createLinearGradient(0, 366, 0, 512);
+  counter.addColorStop(0, '#2b1b10');
+  counter.addColorStop(0.5, '#100c09');
+  counter.addColorStop(1, '#080605');
+  ctx.fillStyle = counter;
+  ctx.fillRect(0, 366, 1024, 146);
+  ctx.fillStyle = 'rgba(255, 214, 160, 0.34)';
+  ctx.fillRect(0, 370, 1024, 5);
+  for (let i = 0; i < 12; i += 1) {
+    ctx.fillStyle = `rgba(255, 206, 150, ${0.02 + Math.random() * 0.05})`;
+    ctx.fillRect(0, 30 + Math.random() * 330, 1024, 2);
+  }
+
+  return toTexture(canvas, { repeat: [1, 1] });
+}
+
+
 export function createPlasterTexture(seed = 3) {
   const size = 512;
   const { canvas, ctx } = makeCanvas(size, size);
@@ -421,24 +615,60 @@ export function createStreetSignTexture(main, sub = '') {
    Environment for PBR reflections
    -------------------------------------------------------------------------- */
 
-export function createEnvironmentMap(renderer) {
+export function createEnvironmentMap(renderer, mode = 'day') {
   const width = 1024;
   const height = 512;
   const { canvas, ctx } = makeCanvas(width, height);
+  const night = mode === 'night';
   const gradient = ctx.createLinearGradient(0, 0, 0, height);
-  gradient.addColorStop(0, '#88a9b7');
-  gradient.addColorStop(0.38, '#d7e3df');
-  gradient.addColorStop(0.52, '#f0e5d2');
-  gradient.addColorStop(0.6, '#cbb79d');
-  gradient.addColorStop(1, '#5d5146');
+  if (night) {
+    gradient.addColorStop(0, '#04060f');
+    gradient.addColorStop(0.25, '#0f1122');
+    gradient.addColorStop(0.45, '#241d35');
+    gradient.addColorStop(0.5, '#392a43');
+    gradient.addColorStop(0.56, '#17121c');
+    gradient.addColorStop(1, '#030204');
+  } else {
+    gradient.addColorStop(0, '#86a9bb');
+    gradient.addColorStop(0.38, '#d7e3df');
+    gradient.addColorStop(0.52, '#f0e5d2');
+    gradient.addColorStop(0.6, '#cbb79d');
+    gradient.addColorStop(1, '#5d5146');
+  }
   ctx.fillStyle = gradient;
   ctx.fillRect(0, 0, width, height);
-  const sun = ctx.createRadialGradient(width * 0.24, height * 0.32, 2, width * 0.24, height * 0.32, 190);
-  sun.addColorStop(0, 'rgba(255,246,224,1)');
-  sun.addColorStop(0.2, 'rgba(255,230,190,0.72)');
-  sun.addColorStop(1, 'rgba(255,192,128,0)');
-  ctx.fillStyle = sun;
-  ctx.fillRect(0, 0, width, height);
+
+  if (night) {
+    /* Cool moon bloom. */
+    const moon = ctx.createRadialGradient(width * 0.2, height * 0.3, 2, width * 0.2, height * 0.3, 150);
+    moon.addColorStop(0, 'rgba(225, 235, 255, 0.35)');
+    moon.addColorStop(0.2, 'rgba(145, 170, 220, 0.16)');
+    moon.addColorStop(1, 'rgba(60, 80, 140, 0)');
+    ctx.fillStyle = moon;
+    ctx.fillRect(0, 0, width, height);
+
+    /* Warm shopfront band and violet neon spill at street level. */
+    const warm = ctx.createLinearGradient(0, height * 0.46, 0, height * 0.64);
+    warm.addColorStop(0, 'rgba(255, 180, 95, 0)');
+    warm.addColorStop(0.45, 'rgba(255, 190, 115, 0.52)');
+    warm.addColorStop(1, 'rgba(255, 135, 65, 0)');
+    ctx.fillStyle = warm;
+    ctx.fillRect(0, height * 0.46, width, height * 0.18);
+    const violet = ctx.createRadialGradient(width * 0.38, height * 0.5, 0, width * 0.38, height * 0.5, 210);
+    violet.addColorStop(0, 'rgba(165, 95, 240, 0.32)');
+    violet.addColorStop(0.4, 'rgba(105, 65, 180, 0.12)');
+    violet.addColorStop(1, 'rgba(50, 30, 90, 0)');
+    ctx.fillStyle = violet;
+    ctx.fillRect(0, 0, width, height);
+  } else {
+    const sun = ctx.createRadialGradient(width * 0.24, height * 0.32, 2, width * 0.24, height * 0.32, 190);
+    sun.addColorStop(0, 'rgba(255,246,224,1)');
+    sun.addColorStop(0.2, 'rgba(255,230,190,0.72)');
+    sun.addColorStop(1, 'rgba(255,192,128,0)');
+    ctx.fillStyle = sun;
+    ctx.fillRect(0, 0, width, height);
+  }
+
   const texture = new THREE.CanvasTexture(canvas);
   texture.mapping = THREE.EquirectangularReflectionMapping;
   texture.colorSpace = THREE.SRGBColorSpace;
@@ -467,10 +697,25 @@ export function createMaterials() {
   const steamMap = createSteamTexture();
   const menuMap = createMenuTexture();
   const chalkMap = createChalkboardTexture();
+  const plasterBump = createBumpTexture(201, 512, 1.15);
+  const asphaltBump = createBumpTexture(211, 512, 1.6);
+  const pavementBump = createBumpTexture(221, 512, 0.8);
+  const oakBump = createBumpTexture(231, 512, 0.55);
+  const barkBump = createBumpTexture(241, 512, 1.2);
+  const glowWarmMap = createGlowTexture('warm');
+  const glowVioletMap = createGlowTexture('violet');
+  const glowCoolMap = createGlowTexture('cool');
+  const reflectionWarmMap = createReflectionTexture('warm');
+  const reflectionVioletMap = createReflectionTexture('violet');
+  const storefrontMap = createStorefrontInteriorTexture();
+  const grimeMap = createGrimeTexture();
 
   const textures = [
     plasterMap, plasterMapWarm, brickMap, asphaltMap, pavementMap, oakMap,
-    terrazzoMap, awningMap, rainGlassMap, steamMap, menuMap, chalkMap
+    terrazzoMap, awningMap, rainGlassMap, steamMap, menuMap, chalkMap,
+    plasterBump, asphaltBump, pavementBump, oakBump, barkBump,
+    glowWarmMap, glowVioletMap, glowCoolMap, reflectionWarmMap, reflectionVioletMap,
+    storefrontMap, grimeMap
   ];
 
   const MAT = {};
@@ -478,6 +723,8 @@ export function createMaterials() {
   MAT.plaster = new THREE.MeshStandardMaterial({
     color: 0xf3e7d5,
     map: plasterMap,
+    bumpMap: plasterBump,
+    bumpScale: 0.022,
     roughness: 0.95,
     metalness: 0,
     envMapIntensity: 0.4
@@ -486,6 +733,8 @@ export function createMaterials() {
   MAT.plasterWarm = new THREE.MeshStandardMaterial({
     color: 0xe8d3b6,
     map: plasterMapWarm,
+    bumpMap: plasterBump,
+    bumpScale: 0.026,
     roughness: 0.96,
     metalness: 0,
     envMapIntensity: 0.32
@@ -494,6 +743,8 @@ export function createMaterials() {
   MAT.plasterPale = new THREE.MeshStandardMaterial({
     color: 0xf5efe4,
     map: plasterMap,
+    bumpMap: plasterBump,
+    bumpScale: 0.02,
     roughness: 0.98,
     metalness: 0,
     envMapIntensity: 0.3
@@ -502,6 +753,8 @@ export function createMaterials() {
   MAT.brick = new THREE.MeshStandardMaterial({
     color: 0xc79a7b,
     map: brickMap,
+    bumpMap: plasterBump,
+    bumpScale: 0.045,
     roughness: 0.92,
     metalness: 0,
     envMapIntensity: 0.25
@@ -510,6 +763,8 @@ export function createMaterials() {
   MAT.brickDark = new THREE.MeshStandardMaterial({
     color: 0x8b6753,
     map: brickMap,
+    bumpMap: plasterBump,
+    bumpScale: 0.04,
     roughness: 0.95,
     metalness: 0,
     envMapIntensity: 0.2
@@ -518,6 +773,8 @@ export function createMaterials() {
   MAT.asphalt = new THREE.MeshPhysicalMaterial({
     color: 0x4e4b45,
     map: asphaltMap,
+    bumpMap: asphaltBump,
+    bumpScale: 0.045,
     roughness: 0.76,
     metalness: 0.02,
     clearcoat: 0.08,
@@ -528,6 +785,8 @@ export function createMaterials() {
   MAT.pavement = new THREE.MeshStandardMaterial({
     color: 0xffffff,
     map: pavementMap,
+    bumpMap: pavementBump,
+    bumpScale: 0.02,
     roughness: 0.9,
     metalness: 0,
     envMapIntensity: 0.28
@@ -543,6 +802,8 @@ export function createMaterials() {
   MAT.oak = new THREE.MeshStandardMaterial({
     color: 0xb58a5d,
     map: oakMap,
+    bumpMap: oakBump,
+    bumpScale: 0.012,
     roughness: 0.62,
     metalness: 0,
     envMapIntensity: 0.3
@@ -551,6 +812,8 @@ export function createMaterials() {
   MAT.oakDark = new THREE.MeshStandardMaterial({
     color: 0x7c5638,
     map: oakMap,
+    bumpMap: oakBump,
+    bumpScale: 0.014,
     roughness: 0.68,
     metalness: 0,
     envMapIntensity: 0.25
@@ -559,6 +822,8 @@ export function createMaterials() {
   MAT.oakPale = new THREE.MeshStandardMaterial({
     color: 0xcba87c,
     map: oakMap,
+    bumpMap: oakBump,
+    bumpScale: 0.01,
     roughness: 0.58,
     metalness: 0,
     envMapIntensity: 0.35
@@ -567,6 +832,8 @@ export function createMaterials() {
   MAT.terrazzo = new THREE.MeshStandardMaterial({
     color: 0xe1d2bd,
     map: terrazzoMap,
+    bumpMap: pavementBump,
+    bumpScale: 0.012,
     roughness: 0.42,
     metalness: 0,
     envMapIntensity: 0.55
@@ -976,6 +1243,179 @@ export function createMaterials() {
     toneMapped: true
   });
 
+  MAT.grime = new THREE.MeshBasicMaterial({
+    map: grimeMap,
+    color: 0x2a1c14,
+    transparent: true,
+    opacity: 0.45,
+    depthWrite: false,
+    toneMapped: true
+  });
+
+  MAT.trimStone = new THREE.MeshStandardMaterial({
+    color: 0x9d8c77,
+    roughness: 0.82,
+    metalness: 0.02,
+    envMapIntensity: 0.35
+  });
+
+  MAT.trimWood = new THREE.MeshStandardMaterial({
+    color: 0x6f4c33,
+    map: oakMap,
+    bumpMap: oakBump,
+    bumpScale: 0.01,
+    roughness: 0.7,
+    metalness: 0,
+    envMapIntensity: 0.25
+  });
+
+  MAT.roofTile = new THREE.MeshStandardMaterial({
+    color: 0x9a6248,
+    map: brickMap,
+    bumpMap: plasterBump,
+    bumpScale: 0.02,
+    roughness: 0.86,
+    metalness: 0.03,
+    envMapIntensity: 0.3
+  });
+
+  MAT.ventMetal = new THREE.MeshStandardMaterial({
+    color: 0x8d9399,
+    roughness: 0.48,
+    metalness: 0.72,
+    envMapIntensity: 0.8
+  });
+
+  MAT.pipeCopper = new THREE.MeshStandardMaterial({
+    color: 0x8b6245,
+    roughness: 0.38,
+    metalness: 0.78,
+    envMapIntensity: 0.7
+  });
+
+  MAT.grille = new THREE.MeshStandardMaterial({
+    color: 0x26282b,
+    roughness: 0.5,
+    metalness: 0.55,
+    envMapIntensity: 0.4
+  });
+
+  MAT.ceramic = new THREE.MeshStandardMaterial({
+    color: 0xd8d2c5,
+    roughness: 0.4,
+    metalness: 0.02,
+    envMapIntensity: 0.5
+  });
+
+  MAT.storefrontWash = new THREE.MeshBasicMaterial({
+    color: new THREE.Color(1.5, 0.72, 0.3),
+    transparent: true,
+    opacity: 0,
+    blending: THREE.AdditiveBlending,
+    depthWrite: false,
+    side: THREE.DoubleSide,
+    toneMapped: true
+  });
+
+  MAT.storefrontInterior = new THREE.MeshBasicMaterial({
+    map: storefrontMap,
+    color: new THREE.Color(1.9, 1.6, 1.25),
+    transparent: true,
+    opacity: 0,
+    depthWrite: false,
+    side: THREE.DoubleSide,
+    toneMapped: true
+  });
+
+  MAT.neonAmber = new THREE.MeshBasicMaterial({ color: new THREE.Color(1.7, 0.68, 0.18) });
+  MAT.neonWarmWhite = new THREE.MeshBasicMaterial({ color: new THREE.Color(1.4, 1.2, 0.95) });
+  MAT.neonViolet = new THREE.MeshBasicMaterial({ color: new THREE.Color(1.05, 0.3, 1.75) });
+  MAT.neonPink = new THREE.MeshBasicMaterial({ color: new THREE.Color(1.5, 0.35, 0.9) });
+  MAT.neonGreen = new THREE.MeshBasicMaterial({ color: new THREE.Color(0.28, 1.25, 0.72) });
+
+  MAT.busWindowGlow = new THREE.MeshBasicMaterial({ color: new THREE.Color(1.35, 0.95, 0.55) });
+
+  MAT.glowSpriteWarm = new THREE.SpriteMaterial({
+    map: glowWarmMap,
+    color: 0xffb56a,
+    transparent: true,
+    opacity: 0.16,
+    blending: THREE.AdditiveBlending,
+    depthWrite: false,
+    toneMapped: true
+  });
+
+  MAT.glowSpriteViolet = new THREE.SpriteMaterial({
+    map: glowVioletMap,
+    color: 0x9b63e8,
+    transparent: true,
+    opacity: 0.12,
+    blending: THREE.AdditiveBlending,
+    depthWrite: false,
+    toneMapped: true
+  });
+
+  MAT.glowSpriteCool = new THREE.SpriteMaterial({
+    map: glowCoolMap,
+    color: 0x9eb9e8,
+    transparent: true,
+    opacity: 0.12,
+    blending: THREE.AdditiveBlending,
+    depthWrite: false,
+    toneMapped: true
+  });
+
+  MAT.poolWarm = new THREE.MeshBasicMaterial({
+    map: glowWarmMap,
+    color: 0xffae62,
+    transparent: true,
+    opacity: 0.13,
+    blending: THREE.AdditiveBlending,
+    depthWrite: false,
+    toneMapped: true
+  });
+
+  MAT.poolViolet = new THREE.MeshBasicMaterial({
+    map: glowVioletMap,
+    color: 0x9c62e5,
+    transparent: true,
+    opacity: 0.1,
+    blending: THREE.AdditiveBlending,
+    depthWrite: false,
+    toneMapped: true
+  });
+
+  MAT.reflectionWarm = new THREE.MeshBasicMaterial({
+    map: reflectionWarmMap,
+    color: 0xffb365,
+    transparent: true,
+    opacity: 0.3,
+    blending: THREE.AdditiveBlending,
+    depthWrite: false,
+    side: THREE.DoubleSide,
+    toneMapped: true
+  });
+
+  MAT.reflectionViolet = new THREE.MeshBasicMaterial({
+    map: reflectionVioletMap,
+    color: 0x9c63e8,
+    transparent: true,
+    opacity: 0.18,
+    blending: THREE.AdditiveBlending,
+    depthWrite: false,
+    side: THREE.DoubleSide,
+    toneMapped: true
+  });
+
+  MAT.contactShadow = new THREE.MeshBasicMaterial({
+    color: 0x000000,
+    map: glowWarmMap,
+    transparent: true,
+    opacity: 0.32,
+    depthWrite: false,
+    toneMapped: false
+  });
+
   MAT.steam = new THREE.SpriteMaterial({
     map: steamMap,
     transparent: true,
@@ -1012,6 +1452,9 @@ export function createMaterials() {
 export function createSignMaterial(options) {
   const texture = createSignTexture(options);
   const material = new THREE.MeshBasicMaterial({ map: texture, toneMapped: true });
+  if (options.brightness) {
+    material.color.setScalar(options.brightness);
+  }
   return { material, texture };
 }
 
@@ -1019,3 +1462,8 @@ export function createStreetSignMaterial(main, sub) {
   const texture = createStreetSignTexture(main, sub);
   return new THREE.MeshBasicMaterial({ map: texture, toneMapped: true });
 }
+
+
+
+
+

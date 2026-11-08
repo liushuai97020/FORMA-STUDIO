@@ -5,6 +5,7 @@ import { createMaterials } from './scene/materials.js';
 import { createExterior } from './scene/exterior.js';
 import { createInterior } from './scene/interior.js';
 import { createWeather } from './scene/weather.js';
+import { createPostFX } from './scene/postfx.js';
 import { createUI, orderNote } from './ui/ui.js';
 
 const container = document.getElementById('scene');
@@ -54,19 +55,27 @@ function boot() {
   scene.add(exterior.group);
   scene.add(interior.group);
 
+  const postfx = createPostFX({
+    renderer,
+    scene,
+    camera,
+    mobile: mobileQuery.matches || reducedMotion
+  });
+  postfx.setSize(window.innerWidth, window.innerHeight);
+
   const weather = createWeather({
     scene,
     renderer,
     MAT,
     exterior,
     interior,
+    environments: stage.environments,
     reducedMotion,
     hero: state.hero
   });
 
   if (state.hero) {
-    weather.setForcedSun(true);
-    weather.setWeather('sunny', { instant: true });
+    weather.setWeather('rainy', { instant: true });
     exterior.setHeroPose();
   } else {
     weather.setWeather(state.weather, { instant: true });
@@ -85,7 +94,7 @@ function boot() {
     onHotspotAction: handleHotspot
   });
 
-  ui.setWeatherUI(state.hero ? 'sunny' : state.weather);
+  ui.setWeatherUI(state.weather);
   ui.setLoaderProgress(0.25);
 
   /* Camera and view state */
@@ -544,6 +553,7 @@ function boot() {
      ---------------------------------------------------------------------- */
 
   function handleResize() {
+    postfx.setSize(window.innerWidth, window.innerHeight);
     if (transition) return;
     if (state.hero) {
       setCameraImmediate(viewMode);
@@ -607,11 +617,17 @@ function boot() {
     const dt = Math.min(rawDt, 0.05);
     elapsed += dt;
 
-    const rainAmount = weather.update(Math.min(rawDt, 0.25), elapsed, state.hero ? 0 : state.weather === 'rainy' ? 1 : 0);
-    if (!state.hero) {
+    weather.setIndoor(!state.hero && viewMode !== 'exterior');
+    const rainAmount = weather.update(Math.min(rawDt, 0.25), elapsed, state.hero ? 1 : state.weather === 'rainy' ? 1 : 0);
+    if (state.hero) {
+      exterior.update(0, 0, rainAmount);
+      interior.update(0, 0, rainAmount);
+    } else {
       exterior.update(dt, elapsed, rainAmount);
       interior.update(dt, elapsed, rainAmount);
     }
+    postfx.setNight(rainAmount);
+    postfx.setTime(elapsed, rainAmount);
 
     if (transition) {
       updateTransition(dt);
@@ -632,7 +648,7 @@ function boot() {
     }
 
     updateHotspots();
-    renderer.render(scene, camera);
+    postfx.render(dt);
   }
 
   /* ----------------------------------------------------------------------
@@ -640,15 +656,17 @@ function boot() {
      ---------------------------------------------------------------------- */
 
   ui.setLoaderProgress(0.72);
-  const initialRain = weather.update(0, 0, state.hero ? 0 : state.weather === 'rainy' ? 1 : 0);
+  const initialRain = weather.update(0, 0, state.hero ? 1 : state.weather === 'rainy' ? 1 : 0);
   exterior.update(0, 0, initialRain);
   interior.update(0, 0, initialRain);
+  postfx.setNight(initialRain);
+  postfx.setTime(0, initialRain);
 
   if (state.hero) {
     viewMode = 'exterior';
     setCameraImmediate('exterior');
     ui.setViewUI('exterior');
-    renderer.render(scene, camera);
+    postfx.render(0);
     ui.hideLoader();
     document.body.classList.add('is-ready');
   } else {
@@ -658,7 +676,7 @@ function boot() {
       setCameraImmediate(viewMode);
     }
     updateHotspots();
-    renderer.render(scene, camera);
+    postfx.render(0);
     ui.setLoaderProgress(1);
     ui.hideLoader();
     document.body.classList.add('is-ready');
@@ -687,6 +705,7 @@ function boot() {
     });
     if (scene.environment) scene.environment.dispose();
     if (stage.environment && stage.environment !== scene.environment) stage.environment.dispose();
+    postfx.dispose();
     stage.dispose();
     renderer.forceContextLoss?.();
   }
@@ -696,3 +715,5 @@ function boot() {
   clock.getDelta();
   rafId = requestAnimationFrame(frame);
 }
+
+

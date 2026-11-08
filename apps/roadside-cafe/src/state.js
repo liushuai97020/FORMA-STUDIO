@@ -168,38 +168,38 @@ export const ORDER_STEPS = {
 export const WEATHER = {
   sunny: {
     label: '晴天',
-    readout: '晴 · 微风 2 级',
-    interior: '晴',
-    accent: '#b4683f'
+    readout: '晴 · 午后 15:20',
+    interior: '午后晴光',
+    accent: '#c9834d'
   },
   rainy: {
     label: '雨天',
-    readout: '雨 · 檐口滴水',
-    interior: '雨',
-    accent: '#5d7079'
+    readout: '雨 · 夜 23:42',
+    interior: '雨夜',
+    accent: '#8b7ab8'
   }
 };
 
 export const CAMERA = {
   exterior: {
-    position: [14.2, 6.3, 16.2],
-    target: [0.2, 2.9, 0.1],
-    fov: 38
+    position: [15.0, 13.6, 28.0],
+    target: [0.2, 0.9, -1.5],
+    fov: 36.0
   },
   exteriorMobile: {
-    position: [13.4, 5.5, 17.2],
-    target: [0.1, 2.7, -0.1],
-    fov: 44
+    position: [19.0, 14.5, 33.0],
+    target: [0.0, 0.8, -1.0],
+    fov: 47
   },
   cover: {
-    position: [13.2, 5.7, 15.2],
-    target: [0.1, 2.9, 0.1],
-    fov: 38
+    position: [14.0, 13.2, 27.0],
+    target: [0.0, 0.8, -1.4],
+    fov: 35.5
   },
   coverMobile: {
-    position: [13.0, 5.2, 16.2],
-    target: [0.1, 2.8, 0],
-    fov: 42
+    position: [18.0, 14.0, 32.0],
+    target: [0.0, 0.7, -1.0],
+    fov: 45
   },
   interior: {
     position: [-0.8, 2.05, 1.25],
@@ -234,7 +234,7 @@ export function drinksFor(category) {
 export function getInitialState() {
   const params = new URLSearchParams(window.location.search);
   const hero = params.has('cover') || params.get('embed') === 'hero';
-  const weather = params.get('weather') === 'rainy' ? 'rainy' : 'sunny';
+  const weather = params.get('weather') === 'sunny' ? 'sunny' : 'rainy';
   const viewParam = params.get('view');
   const view = !hero && (viewParam === 'interior' || viewParam === 'cabinet') ? viewParam : 'exterior';
 
@@ -252,3 +252,6 @@ export function getInitialState() {
     transitioning: false
   };
 }
+
+
+

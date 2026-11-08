@@ -557,8 +557,162 @@ function createOrderCup(MAT) {
 }
 
 /* --------------------------------------------------------------------------
-   Assemble interior
+   Interior micro-detail: ceiling slats, wall panelling, bar clutter, frames,
+   table settings and soft rim lights behind the regulars.
    -------------------------------------------------------------------------- */
+
+function createInteriorDetail(MAT) {
+  const group = new THREE.Group();
+  const lights = [];
+
+  /* Ceiling slats over the room */
+  for (let x = -6.85; x <= 6.85; x += 0.44) {
+    addBox(group, MAT.oakDark, 0.045, 0.045, 7.7, x, CEILING - 0.055, -2.95, { cast: false });
+  }
+  addBox(group, MAT.oak, 0.1, 0.08, 7.7, -6.45, CEILING - 0.11, -2.95, { cast: true });
+  addBox(group, MAT.oak, 0.1, 0.08, 7.7, 6.45, CEILING - 0.11, -2.95, { cast: true });
+
+  /* Board-and-batten panelling on the back wall behind the bar */
+  for (let x = -6.9; x <= 2.65; x += 0.32) {
+    addBox(group, MAT.oakDark, 0.055, 2.55, 0.035, x, FLOOR + 1.48, -7.04, { cast: false });
+  }
+  addBox(group, MAT.oak, 6.5, 0.06, 0.06, -2.1, FLOOR + 2.72, -7.02, { cast: false });
+  addBox(group, MAT.oak, 6.5, 0.06, 0.06, -2.1, FLOOR + 0.3, -7.02, { cast: false });
+
+  /* Wainscot and chair rail on the right wall */
+  for (let z = -6.6; z <= -0.2; z += 0.78) {
+    addBox(group, MAT.oak, 0.05, 0.9, 0.04, 7.24, FLOOR + 0.58, z, { cast: false });
+    addBox(group, MAT.oakDark, 0.04, 0.62, 0.62, 7.255, FLOOR + 0.55, z + 0.32, { cast: false });
+  }
+  addBox(group, MAT.oak, 0.08, 0.07, 7.0, 7.22, FLOOR + 1.06, -3.4, { cast: false });
+  addBox(group, MAT.oakDark, 0.08, 0.12, 7.0, 7.22, FLOOR + 0.08, -3.4, { cast: false });
+
+  /* Baseboards and door casing */
+  addBox(group, MAT.oakDark, 13.1, 0.12, 0.055, 0, FLOOR + 0.06, -7.05, { cast: false });
+  addBox(group, MAT.oakDark, 0.055, 0.12, 6.9, -7.26, FLOOR + 0.06, -3.3, { cast: false });
+  addBox(group, MAT.oakDark, 0.055, 0.12, 6.9, 7.26, FLOOR + 0.06, -3.3, { cast: false });
+  addBox(group, MAT.oakDark, 0.1, 2.1, 0.1, 6.55, FLOOR + 1.05, -0.62, { cast: true });
+  addBox(group, MAT.oakDark, 0.1, 2.1, 0.1, 7.06, FLOOR + 1.05, -0.62, { cast: true });
+  addBox(group, MAT.oakDark, 0.1, 0.1, 1.8, 6.7, FLOOR + 2.15, 0.2, { cast: false });
+
+  /* Framed prints and a small menu card on the side wall */
+  const artTitles = [
+    ['雨', 'AFTER THE RAIN', '#1a2430', '#d9e7ea'],
+    ['街角', 'A CORNER IN HANGZHOU', '#2a211b', '#e6d3b6'],
+    ['一杯', 'A QUIET CUP', '#1d2420', '#d8e2cf']
+  ];
+  artTitles.forEach(([title, sub, bg, fg], index) => {
+    const texture = makeTextTexture(title, { width: 320, height: 420, background: bg, color: fg, sub, accent: '#b8784e', font: '600 74px "Songti SC", serif' });
+    MAT.textures.push(texture);
+    const z = -4.6 + index * 1.25;
+    addBox(group, MAT.oakDark, 0.05, 1.0, 0.78, 7.22, FLOOR + 1.95, z, { cast: false });
+    addPanel(group, new THREE.MeshBasicMaterial({ map: texture, toneMapped: true }), 0.66, 0.86, 7.17, FLOOR + 1.95, z, -Math.PI / 2);
+    addBox(group, MAT.brass, 0.02, 0.04, 0.8, 7.2, FLOOR + 2.47, z, { cast: false });
+  });
+
+  /* Pastry tray, cup stacks and bar clutter */
+  addBox(group, MAT.stone, 0.85, 0.035, 0.48, 0.15, FLOOR + 1.19, -4.75, { cast: true });
+  for (const [px, pz] of [[-0.1, -4.83], [0.25, -4.7], [0.45, -4.86]]) {
+    const pastry = new THREE.Mesh(new THREE.TorusGeometry(0.08, 0.032, 6, 12, Math.PI), MAT.oak);
+    pastry.position.set(px, FLOOR + 1.22, pz);
+    pastry.rotation.x = -Math.PI / 2;
+    group.add(pastry);
+  }
+  for (const [cx, cz] of [[1.34, -6.32], [1.48, -6.32], [1.62, -6.32]]) {
+    for (let i = 0; i < 3; i += 1) {
+      addCylinder(group, MAT.paper, 0.085, 0.075, 0.07, cx, FLOOR + 1.18 + i * 0.07, cz, { segments: 14, cast: false });
+    }
+  }
+  addBox(group, MAT.oak, 0.28, 0.46, 0.24, 1.75, FLOOR + 1.16, -6.55, { rotation: [0, 0.1, 0], cast: true });
+  addBox(group, MAT.paper, 0.21, 0.05, 0.16, 1.75, FLOOR + 1.42, -6.55, { cast: false });
+  addCylinder(group, MAT.brass, 0.035, 0.05, 0.32, -3.3, FLOOR + 1.3, -6.35, { rotation: [0.15, 0, 0.12], segments: 8, cast: true });
+  addBox(group, MAT.metalDark, 0.22, 0.035, 0.22, -4.55, FLOOR + 1.2, -6.5, { cast: false });
+  addCylinder(group, MAT.chrome, 0.028, 0.028, 0.18, -4.55, FLOOR + 1.24, -6.5, { rotation: [Math.PI / 2, 0, 0], segments: 8, cast: true });
+  for (let i = 0; i < 4; i += 1) {
+    addCylinder(group, MAT.brass, 0.035, 0.04, 0.16, -2.0 + i * 0.14, FLOOR + 1.24, -6.72, { segments: 8, cast: true });
+  }
+
+  /* Chalk menu cards hanging over the bar */
+  for (let i = 0; i < 3; i += 1) {
+    const card = makeTextTexture(i === 0 ? '今日咖啡' : i === 1 ? '手冲单' : '天气特调', {
+      width: 240, height: 320, background: '#24201b', color: '#e9ddca', sub: 'EAVES · TODAY',
+      accent: '#bf8556', font: '600 46px "Songti SC", serif'
+    });
+    MAT.textures.push(card);
+    addBox(group, MAT.oakDark, 0.03, 0.62, 0.44, -5.2 + i * 0.55, FLOOR + 2.36, -6.98, { cast: false });
+    addPanel(group, new THREE.MeshBasicMaterial({ map: card, toneMapped: true }), 0.36, 0.54, -5.2 + i * 0.55, FLOOR + 2.36, -6.955);
+  }
+
+  /* Ritual objects on the counter by the espresso machine */
+  addBox(group, MAT.oakDark, 0.25, 0.025, 0.18, -3.15, FLOOR + 1.2, -5.7, { cast: false });
+  addCylinder(group, MAT.chrome, 0.028, 0.028, 0.16, -3.15, FLOOR + 1.27, -5.7, { rotation: [0, 0, 0.2], segments: 8, cast: true });
+  addCylinder(group, MAT.brass, 0.03, 0.04, 0.2, -3.33, FLOOR + 1.25, -5.7, { segments: 8, cast: true });
+  addCylinder(group, MAT.metalDark, 0.055, 0.055, 0.12, -2.7, FLOOR + 1.24, -5.7, { segments: 10, cast: true });
+
+  /* Chairs get back slats and a little upholstery detail. */
+  const chairPositions = [
+    [-5.0, -2.6, Math.PI / 2], [-3.0, -2.6, -Math.PI / 2],
+    [2.65, -2.7, Math.PI / 2], [4.45, -2.7, -Math.PI / 2]
+  ];
+  for (const [cx, cz, rot] of chairPositions) {
+    const chair = new THREE.Group();
+    chair.position.set(cx, FLOOR, cz);
+    chair.rotation.y = rot;
+    group.add(chair);
+    for (let i = 0; i < 3; i += 1) {
+      addBox(chair, MAT.oak, 0.38, 0.035, 0.025, 0, 0.62 + i * 0.11, -0.22, { cast: true });
+    }
+    addBox(chair, MAT.fabricCream, 0.36, 0.025, 0.017, 0, 0.56, -0.205, { cast: false });
+    for (const dx of [-0.18, 0.18]) {
+      addCylinder(chair, MAT.brass, 0.022, 0.022, 0.04, dx, 0.5, -0.19, { segments: 8, cast: false });
+    }
+  }
+
+  /* Table settings: menus, water glasses, a candle and a book. */
+  for (const [tx, tz] of [[-4.0, -2.6], [3.55, -2.7]]) {
+    addBox(group, MAT.paper, 0.24, 0.012, 0.33, tx - 0.24, FLOOR + 0.755, tz + 0.18, { rotation: [0, 0.3, 0], cast: false });
+    addCylinder(group, MAT.brass, 0.035, 0.045, 0.1, tx + 0.18, FLOOR + 0.815, tz - 0.18, { segments: 10, cast: true });
+    const flame = new THREE.Mesh(new THREE.SphereGeometry(0.018, 6, 5), MAT.lampGlow);
+    flame.scale.y = 1.8;
+    flame.position.set(tx + 0.18, FLOOR + 0.89, tz - 0.18);
+    group.add(flame);
+    addCylinder(group, MAT.windowGlass, 0.04, 0.04, 0.12, tx + 0.28, FLOOR + 0.79, tz + 0.2, { segments: 12, cast: false });
+    addBox(group, MAT.fabricSage, 0.26, 0.045, 0.2, tx + 0.3, FLOOR + 0.76, tz - 0.28, { rotation: [0, -0.2, 0], cast: false });
+  }
+
+  /* A little shelf of coffee bags and jars above the cabinet */
+  for (let i = 0; i < 5; i += 1) {
+    addBox(group, MAT.paper, 0.14, 0.23, 0.08, 3.3 + i * 0.2, FLOOR + 2.45, -6.9, { cast: false });
+    addBox(group, MAT.fabricRust, 0.1, 0.04, 0.06, 3.3 + i * 0.2, FLOOR + 2.58, -6.88, { cast: false });
+  }
+
+  /* Pendant rings and extra bulbs over the window bar */
+  for (const x of [-5.6, -4.2, -2.8]) {
+    const ring = new THREE.Mesh(new THREE.TorusGeometry(0.16, 0.01, 5, 20), MAT.brass);
+    ring.rotation.x = Math.PI / 2;
+    ring.position.set(x, CEILING - 1.36, 0.55);
+    group.add(ring);
+    addCylinder(group, MAT.brass, 0.02, 0.02, 0.12, x + 0.28, CEILING - 1.1, 0.55, { rotation: [0, 0, 0.5], segments: 6, cast: false });
+  }
+
+  /* Soft rim lights so silhouettes separate from the dark background. */
+  const rimA = new THREE.PointLight(0xffc58e, 0, 3.4, 2);
+  rimA.position.set(2.2, 1.55, -1.65);
+  group.add(rimA);
+  lights.push({ light: rimA, day: 0.2, rain: 0.85 });
+  const rimB = new THREE.PointLight(0xffb87b, 0, 3.4, 2);
+  rimB.position.set(4.85, 1.55, -1.6);
+  group.add(rimB);
+  lights.push({ light: rimB, day: 0.18, rain: 0.75 });
+  const rimBarista = new THREE.PointLight(0xffd1a0, 0, 2.8, 2);
+  rimBarista.position.set(-2.2, 2.0, -6.3);
+  group.add(rimBarista);
+  lights.push({ light: rimBarista, day: 0.2, rain: 0.9 });
+
+  return { group, lights };
+}
+
+
 
 export function createInterior(MAT) {
   const group = new THREE.Group();
@@ -575,6 +729,8 @@ export function createInterior(MAT) {
 
   const decor = createShelfAndDecor(MAT);
   group.add(decor);
+  const interiorDetail = createInteriorDetail(MAT);
+  group.add(interiorDetail.group);
 
   /* Tables and chairs */
   const tables = [];
@@ -601,7 +757,7 @@ export function createInterior(MAT) {
   /* Two regulars share the table by the right window */
   const customerA = createPerson(MAT, {
     top: 'shirtCream', bottom: 'denim', hair: 'hairBrown', hairStyle: 'long',
-    skin: 'skinLight', seated: true
+    skin: 'skinLight', seated: true, scarf: true
   });
   customerA.position.set(2.65, FLOOR, -2.7);
   customerA.rotation.y = Math.PI / 2;
@@ -613,7 +769,7 @@ export function createInterior(MAT) {
 
   const customerB = createPerson(MAT, {
     top: 'shirtRust', bottom: 'denim', hair: 'hairDark', hairStyle: 'short',
-    skin: 'skinWarm', seated: true
+    skin: 'skinWarm', seated: true, hat: true
   });
   customerB.position.set(4.45, FLOOR, -2.7);
   customerB.rotation.y = -Math.PI / 2;
@@ -642,6 +798,23 @@ export function createInterior(MAT) {
   const baristaHome = new THREE.Vector3(-2.25, FLOOR, -5.5);
   const baristaMachine = new THREE.Vector3(-3.6, FLOOR, -5.55);
 
+  /* Soft contact shadows ground the furniture without another shadow map. */
+  const shadowGeometry = new THREE.CircleGeometry(1, 24);
+  for (const [sx, sz, sw, sd, so] of [
+    [3.55, -2.7, 2.6, 1.9, 0.34],
+    [-2.3, -4.65, 8.2, 1.2, 0.26],
+    [4.95, -5.98, 3.4, 0.9, 0.24],
+    [-4.0, -2.6, 2.2, 1.7, 0.22],
+    [2.65, -2.7, 0.75, 0.7, 0.2],
+    [4.45, -2.7, 0.75, 0.7, 0.2]
+  ]) {
+    const shadowMesh = new THREE.Mesh(shadowGeometry, MAT.contactShadow);
+    shadowMesh.rotation.x = -Math.PI / 2;
+    shadowMesh.scale.set(sw * 0.5, sd * 0.5, 1);
+    shadowMesh.position.set(sx, FLOOR + 0.006, sz);
+    shadowMesh.renderOrder = 1;
+    group.add(shadowMesh);
+  }
   /* Pickup cup and machine steam */
   const orderCup = createOrderCup(MAT);
   orderCup.group.position.set(-0.25, FLOOR + 1.16, -4.55);
@@ -660,33 +833,51 @@ export function createInterior(MAT) {
   /* Interior lights */
   const lights = [];
   for (const [i, light] of bar.pendants.entries()) {
-    lights.push({ light, day: 1.7, rain: 2.5 });
+    lights.push({ light, day: 1.7, rain: 5.8 });
   }
+  for (const entry of interiorDetail.lights) lights.push(entry);
 
   const windowLight = new THREE.PointLight(0xffe2be, 1.2, 11, 2);
   windowLight.position.set(0, 2.35, 0.9);
   group.add(windowLight);
-  lights.push({ light: windowLight, day: 1.7, rain: 0.5 });
+  lights.push({ light: windowLight, day: 2.0, rain: 2.6 });
 
   const backLight = new THREE.PointLight(0xffbd82, 0.8, 8, 2);
   backLight.position.set(-2.2, 1.85, -6.2);
   group.add(backLight);
-  lights.push({ light: backLight, day: 0.95, rain: 1.5 });
+  lights.push({ light: backLight, day: 0.95, rain: 3.2 });
 
   const cabinetLight = new THREE.PointLight(0xffc992, 0.55, 4.2, 2);
   cabinetLight.position.set(4.9, 1.8, -6.1);
   group.add(cabinetLight);
-  lights.push({ light: cabinetLight, day: 0.85, rain: 1.1 });
+  lights.push({ light: cabinetLight, day: 0.85, rain: 2.0 });
 
   const readingLight = new THREE.PointLight(0xffb877, 0.45, 3.2, 2);
   readingLight.position.set(-6.7, 2.7, -3.3);
   group.add(readingLight);
-  lights.push({ light: readingLight, day: 0.55, rain: 0.9 });
+  lights.push({ light: readingLight, day: 0.55, rain: 1.8 });
+
+  const sunShaft = new THREE.SpotLight(0xffdfb2, 0, 13, 0.58, 0.62, 1.6);
+  sunShaft.position.set(-2.4, 2.85, 0.7);
+  const shaftTarget = new THREE.Object3D();
+  shaftTarget.position.set(0.4, 0.0, -3.8);
+  group.add(shaftTarget);
+  sunShaft.target = shaftTarget;
+  sunShaft.castShadow = true;
+  sunShaft.shadow.mapSize.set(1024, 1024);
+  sunShaft.shadow.bias = -0.0008;
+  group.add(sunShaft);
+  lights.push({ light: sunShaft, day: 2.2, rain: 0.3 });
+
+  const coolFill = new THREE.PointLight(0xa8c2ff, 0, 10, 2);
+  coolFill.position.set(0.4, 1.9, 0.8);
+  group.add(coolFill);
+  lights.push({ light: coolFill, day: 0.5, rain: 1.8 });
 
   const windowBarLight = new THREE.PointLight(0xffbe86, 0.5, 6, 2);
   windowBarLight.position.set(-4.2, 2.25, 0.55);
   group.add(windowBarLight);
-  lights.push({ light: windowBarLight, day: 1.1, rain: 1.7 });
+  lights.push({ light: windowBarLight, day: 1.1, rain: 3.6 });
 
   /* A quieter table setting: rug, pendant, floor lamp, clock and pastries. */
   const rugMaterial = new THREE.MeshStandardMaterial({ color: 0xaa8c70, roughness: 0.98, metalness: 0 });
@@ -700,7 +891,7 @@ export function createInterior(MAT) {
   const tableLight = new THREE.PointLight(0xffb675, 0, 4.5, 2);
   tableLight.position.set(3.55, CEILING - 1.08, -2.7);
   group.add(tableLight);
-  lights.push({ light: tableLight, day: 1.05, rain: 1.6 });
+  lights.push({ light: tableLight, day: 1.05, rain: 2.8 });
 
   addCylinder(group, MAT.brass, 0.018, 0.018, 1.4, 6.45, FLOOR + 0.72, -1.0, { segments: 8, cast: true });
   addCylinder(group, MAT.metalDark, 0.24, 0.28, 0.035, 6.45, FLOOR + 0.04, -1.0, { segments: 16, cast: true });
@@ -711,7 +902,7 @@ export function createInterior(MAT) {
   const floorLight = new THREE.PointLight(0xffb675, 0, 4, 2);
   floorLight.position.set(6.45, FLOOR + 1.3, -1.0);
   group.add(floorLight);
-  lights.push({ light: floorLight, day: 0.8, rain: 1.2 });
+  lights.push({ light: floorLight, day: 0.8, rain: 2.2 });
 
   /* Wall clock above the counter */
   const clockFace = new THREE.Mesh(
@@ -911,3 +1102,7 @@ export function createInterior(MAT) {
     update
   };
 }
+
+
+
+

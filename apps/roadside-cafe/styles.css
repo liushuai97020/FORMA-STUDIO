@@ -1935,3 +1935,485 @@ body.is-ready .loader {
     display: none;
   }
 }
+
+/* ==========================================================================
+   CINEMATIC NIGHT SKIN — 2026 visual rework
+   The render is the poster: dark glass UI, warm amber accents, light type.
+   ========================================================================== */
+
+:root {
+  --paper: #080c15;
+  --paper-2: #0f1522;
+  --paper-3: #1b2231;
+  --ink: #f4ece2;
+  --ink-2: #c8bfb5;
+  --ink-3: #948d8a;
+  --line: rgba(244, 236, 226, 0.16);
+  --line-soft: rgba(244, 236, 226, 0.08);
+  --accent: #e7a064;
+  --accent-deep: #f2b783;
+  --accent-soft: #3b3143;
+  --moss: #80917c;
+  --brass: #b58e5d;
+  --warm: #ffb86e;
+  --glass: rgba(10, 15, 25, 0.6);
+  --glass-strong: rgba(10, 15, 25, 0.9);
+  --shadow: 0 34px 110px rgba(0, 0, 0, 0.6);
+  --shadow-soft: 0 14px 44px rgba(0, 0, 0, 0.38);
+  color-scheme: dark;
+}
+
+html,
+body {
+  background: #060911;
+}
+
+#app {
+  background: #060911;
+}
+
+body {
+  color: var(--ink);
+}
+
+.scene canvas {
+  background: #060911;
+}
+
+.vignette {
+  background:
+    linear-gradient(to bottom, rgba(3, 5, 12, 0.42), transparent 16%),
+    linear-gradient(
+      to top,
+      rgba(3, 5, 12, 0.94) 0%,
+      rgba(3, 5, 12, 0.82) 11%,
+      rgba(3, 5, 12, 0.5) 24%,
+      rgba(3, 5, 12, 0.2) 38%,
+      transparent 58%
+    ),
+    radial-gradient(120% 100% at 50% 45%, transparent 42%, rgba(2, 3, 8, 0.62) 100%);
+}
+
+.grain {
+  opacity: 0.045;
+  mix-blend-mode: soft-light;
+}
+
+/* Header */
+.brand-seal {
+  color: var(--accent);
+  border-color: rgba(244, 236, 226, 0.34);
+  background: rgba(8, 12, 20, 0.42);
+}
+
+.brand-copy strong {
+  color: var(--ink);
+}
+
+.brand-copy em,
+.site-index {
+  color: var(--ink-3);
+}
+
+.site-index span {
+  color: var(--accent);
+}
+
+/* Weather dock */
+.weather-dock {
+  border-color: var(--line);
+  background: rgba(8, 12, 20, 0.58);
+  box-shadow: 0 10px 34px rgba(0, 0, 0, 0.36);
+}
+
+.weather-label,
+.weather-readout {
+  color: var(--ink-3);
+}
+
+.segmented {
+  background: rgba(244, 236, 226, 0.07);
+}
+
+.weather-btn {
+  color: var(--ink-3);
+}
+
+.weather-btn.is-active {
+  color: var(--ink);
+  background: rgba(244, 236, 226, 0.12);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.28);
+}
+
+.weather-btn.is-active[data-weather="rainy"] {
+  color: #cdbdf2;
+}
+
+/* Editorial copy */
+.place-title {
+  color: var(--ink);
+  text-shadow:
+    0 0 34px rgba(0, 0, 0, 0.55),
+    0 2px 14px rgba(0, 0, 0, 0.42);
+}
+
+.place-subtitle {
+  color: rgba(244, 236, 226, 0.84);
+}
+
+.place-lede {
+  color: rgba(244, 236, 226, 0.66);
+}
+
+.place-stats dt {
+  color: var(--ink);
+}
+
+.place-stats dt small,
+.place-stats dd,
+.place-cue,
+.eyebrow,
+.interior-note,
+.interior-meta {
+  color: var(--ink-3);
+}
+
+.place-subtitle,
+.place-lede,
+.place-stats,
+.place-cue {
+  text-shadow: 0 1px 16px rgba(0, 0, 0, 0.55);
+}
+
+.eyebrow-rule {
+  background: var(--accent);
+}
+
+.title-en {
+  color: var(--accent);
+}
+
+.cue-orbit {
+  border-color: rgba(244, 236, 226, 0.36);
+}
+
+.interior-hud h2 {
+  color: var(--ink);
+}
+
+/* Hotspots */
+.hotspot {
+  border-color: rgba(255, 211, 160, 0.32);
+  background: rgba(7, 10, 18, 0.68);
+  color: #f4e9db;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.3);
+}
+
+.hotspot:hover {
+  background: rgba(18, 16, 24, 0.86);
+}
+
+.hotspot--door {
+  background: rgba(210, 123, 64, 0.86);
+}
+
+/* Dock */
+.dock-actions {
+  border-color: var(--line);
+  background: rgba(8, 12, 20, 0.6);
+}
+
+.dock-btn {
+  color: rgba(244, 236, 226, 0.74);
+}
+
+.dock-btn:hover {
+  color: var(--ink);
+  background: rgba(244, 236, 226, 0.08);
+}
+
+.dock-btn--primary,
+.dock-btn--primary:hover {
+  color: #171018;
+  background: var(--accent);
+}
+
+.dock-btn--primary:hover {
+  background: var(--accent-deep);
+}
+
+.dock-divider {
+  background: var(--line);
+}
+
+.dock-hint {
+  color: var(--ink-3);
+  text-shadow: 0 1px 14px rgba(0, 0, 0, 0.62);
+}
+
+/* Transition veil */
+.transition-veil {
+  background:
+    radial-gradient(85% 85% at 50% 48%, rgba(15, 12, 20, 0.96), rgba(5, 7, 14, 0.94)),
+    #060911;
+}
+
+/* Modal shell */
+.modal {
+  background: rgba(2, 4, 10, 0.62);
+}
+
+#cabinetPanel {
+  background: rgba(2, 4, 10, 0.66);
+}
+
+.modal-card {
+  border-color: var(--line);
+  background: #101521;
+  box-shadow: var(--shadow);
+  color: var(--ink);
+}
+
+.modal-card::-webkit-scrollbar-thumb {
+  background: rgba(244, 236, 226, 0.2);
+}
+
+.scrollbar-color {
+  scrollbar-color: rgba(244, 236, 226, 0.2) transparent;
+}
+
+.modal-head h2,
+.cabinet-card h2 {
+  color: var(--ink);
+}
+
+.icon-btn {
+  color: var(--ink-2);
+  border-color: var(--line);
+  background: rgba(244, 236, 226, 0.06);
+}
+
+.icon-btn:hover {
+  color: var(--ink);
+  background: rgba(244, 236, 226, 0.12);
+}
+
+.btn-primary {
+  color: #171018;
+  background: var(--accent);
+}
+
+.btn-primary:hover {
+  background: var(--accent-deep);
+}
+
+.btn-ghost {
+  color: var(--ink-2);
+  border-color: var(--line);
+  background: rgba(244, 236, 226, 0.04);
+}
+
+.btn-ghost:hover {
+  color: var(--ink);
+  border-color: rgba(244, 236, 226, 0.32);
+  background: rgba(244, 236, 226, 0.09);
+}
+
+/* Order */
+.menu-tabs {
+  border-bottom-color: var(--line-soft);
+}
+
+.menu-tab {
+  color: var(--ink-3);
+}
+
+.menu-tab.is-active {
+  color: var(--ink);
+}
+
+.menu-tab::after {
+  background: var(--accent);
+}
+
+.menu-item {
+  border-color: var(--line-soft);
+  background: rgba(244, 236, 226, 0.035);
+}
+
+.menu-item:hover:not(:disabled) {
+  border-color: rgba(231, 160, 100, 0.48);
+  background: rgba(244, 236, 226, 0.075);
+}
+
+.menu-copy strong,
+.menu-price {
+  color: var(--ink);
+}
+
+.menu-copy em,
+.menu-copy small,
+.order-footnote,
+.prep-en,
+.served-en,
+.cabinet-en {
+  color: var(--ink-3);
+}
+
+.menu-cup {
+  box-shadow: inset 0 5px 0 rgba(255, 255, 255, 0.22), 0 3px 10px rgba(0, 0, 0, 0.38);
+}
+
+.prep-copy h3,
+.served-mark + .prep-kicker,
+#servedDrink,
+#cabinetName {
+  color: var(--ink);
+}
+
+.prep-note,
+.served-note,
+.cabinet-desc {
+  color: var(--ink-2);
+}
+
+.progress {
+  background: rgba(244, 236, 226, 0.12);
+}
+
+.progress-bar {
+  background: var(--accent);
+}
+
+.prep-steps li {
+  color: var(--ink-3);
+}
+
+.prep-steps li::before {
+  border-color: rgba(244, 236, 226, 0.3);
+}
+
+.prep-steps li.is-done {
+  color: var(--ink-2);
+}
+
+.prep-steps li.is-done::before {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.prep-cup {
+  background: #291f1a;
+  box-shadow: inset 0 8px 0 rgba(255, 255, 255, 0.06), 0 12px 30px rgba(0, 0, 0, 0.38);
+}
+
+.prep-cup::before {
+  background: #1d1715;
+  border-color: rgba(244, 236, 226, 0.12);
+}
+
+.served-mark {
+  color: #0b1014;
+  background: #a8bb9c;
+}
+
+.served-ingredients li,
+.cabinet-ingredients li {
+  border-color: var(--line-soft);
+  background: rgba(244, 236, 226, 0.05);
+  color: var(--ink-2);
+}
+
+.cabinet-price {
+  color: var(--accent);
+}
+
+.cabinet-tag,
+.cabinet-step,
+.cabinet-count,
+.cabinet-ingredients-label {
+  color: var(--ink-3);
+}
+
+.cabinet-step:hover {
+  color: var(--accent);
+}
+
+.cabinet-nav {
+  border-top-color: var(--line-soft);
+}
+
+.cabinet-visual {
+  background: linear-gradient(160deg, #34261d, #1a1411);
+  box-shadow: inset 0 10px 0 rgba(255, 255, 255, 0.08), 0 18px 40px rgba(0, 0, 0, 0.4);
+}
+
+.cabinet-label {
+  color: rgba(255, 244, 225, 0.8);
+}
+
+/* Toast */
+.toast {
+  border-color: rgba(244, 236, 226, 0.14);
+  background: rgba(8, 11, 19, 0.9);
+  color: #f4e9db;
+}
+
+/* Loader / fallback / no-script */
+.loader {
+  background: #060911;
+}
+
+.loader-mark,
+.fallback-mark {
+  border-color: rgba(244, 236, 226, 0.3);
+  color: var(--accent);
+  background: rgba(244, 236, 226, 0.03);
+}
+
+.loader-kicker,
+.loader-title {
+  color: var(--ink);
+}
+
+.loader-line {
+  background: rgba(244, 236, 226, 0.12);
+}
+
+.fallback-card {
+  border-color: var(--line);
+  background: rgba(244, 236, 226, 0.03);
+}
+
+.fallback-card h2 {
+  color: var(--ink);
+}
+
+.fallback-card p:not(.eyebrow) {
+  color: var(--ink-2);
+}
+
+.noscript {
+  background: #060911;
+  color: var(--ink);
+}
+
+.no-script,
+body.no-webgl::after {
+  color: var(--ink-2);
+}
+
+/* Small screen dock and copy stay dark-glass */
+@media (max-width: 760px), (max-aspect-ratio: 4 / 5) {
+  .dock-actions,
+  .weather-dock {
+    background: rgba(8, 12, 20, 0.7);
+  }
+}
+
+@media (max-height: 540px) and (orientation: landscape) {
+  .dock-actions,
+  .weather-dock {
+    background: rgba(8, 12, 20, 0.68);
+  }
+}
